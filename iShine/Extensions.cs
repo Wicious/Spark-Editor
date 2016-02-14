@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace iShine
+{
+    public static class Extensions
+    {
+        private static byte[] Buffer = new byte[0x100];
+
+        public static string ReadString(this BinaryReader reader, int length)
+        {
+            var str = Encoding.Default.GetString(reader.ReadBytes(length));
+            str = str.Trim((char)0x00);
+
+            return str;
+        }
+
+        public static T Cast<T>(this object input)
+        {
+            return (T)input;
+        }
+
+
+        public static void WriteString(this BinaryWriter writer, string str, int length)
+        {
+            writer.Write(Encoding.Default.GetBytes(str));
+
+            for(int i = str.Length; i < length; i++)
+            {
+                writer.Write((byte)0x00);
+            }
+        }
+
+        public static Type GetDataType(this DataColumn col)
+        {
+            return col.GetType();
+        }
+
+        public static void DoubleBuffered(this DataGridView dgv, bool setting)
+        {
+            Type dgvType = dgv.GetType();
+            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(dgv, setting, null);
+        }
+
+        public static String ReadStringUntilZero(this BinaryReader reader)
+        {
+            int count = 0;
+            for (byte i = reader.ReadByte(); i != 0; i = reader.ReadByte()) 
+            {
+                Buffer[count++] = i;
+                if (count >= 0x100)
+                    break;
+            }
+            string str = Encoding.Default.GetString(Buffer, 0, count);
+            if (count == 0x100) { str = str + reader.ReadStringUntilZero(); }
+            str = str.Replace(char.ConvertFromUtf32(10), "\\n");
+            return str;
+        }
+    }
+}
