@@ -40,48 +40,90 @@ namespace iShine
         {
             try
             {
+                dynamic file = null;
+                var dgv = new DataGridView();
+
                 // Display the hidden progressbar in the statusbar.
                 pbProgress.Visible = true;
 
-                // Determine what file type it is and perform the appropriate action.
+                // Determine what file type it is and cast to the appropriate type.
                 switch (Path.GetExtension(fileName))
                 {
                     case ".shn":
-                        var shnFile = new SHNFile(fileName);
+                        file = new SHNFile(fileName);
+                        break;
 
-                        var dgv = new DataGridView();
-                        dgv.DoubleBuffered(true);
-
-                        lblStatus.Text = "Reading " + Path.GetFileName(fileName);
-
-                        // Await the asynchronous Load method and display the reported progress in our progressbar.
-                        await Task.Run(() => shnFile.Load(new Progress<int>(value =>
-                            mainStatusStrip.Invoke(new MethodInvoker(() =>
-                            {
-                                pbProgress.Value = value;
-                            }))
-                        )));
-
-                        var tab = new TabPage(shnFile.TableName);
-                        dgv.Dock = DockStyle.Fill;
-                        dgv.BackgroundColor = Color.WhiteSmoke;
-                        dgv.DataSource = shnFile;
-                        tab.Controls.Add(dgv);
-
-                        shnFile.RowChanged += File_RowChanged;
-                        dgv.CellEnter += File_CellEnter;
-
-                        LoadedFiles.Add(shnFile);
-
-
-                        tcFiles.TabPages.Add(tab);
-                        tcFiles.SelectedTab = tab;
-
+                    case ".txt":
+                        file = new ShineFile(fileName);
                         break;
 
                     default:
                         throw new Exception("File type not supported");
                 }
+
+                lblStatus.Text = "Reading " + Path.GetFileName(fileName);
+
+                // Await the asynchronous Load method and display the reported progress in our progressbar.
+                await Task.Run(() => file.Load(new Progress<int>(value =>
+                    mainStatusStrip.Invoke(new MethodInvoker(() =>
+                    {
+                        pbProgress.Value = value;
+                    }))
+                )));
+
+                if (file.GetType() == typeof(SHNFile))
+                {
+                    dgv = new DataGridView();
+                    dgv.Dock = DockStyle.Fill;
+                    dgv.BackgroundColor = Color.WhiteSmoke;
+                    dgv.DoubleBuffered(true);
+                    dgv.DataSource = file;
+
+                    dgv.CellEnter += File_CellEnter;
+
+                    var tab = new TabPage(file.TableName);
+                    file.RowChanged += new DataRowChangeEventHandler(File_RowChanged);
+                    tab.Controls.Add(dgv);
+
+                    tcFiles.TabPages.Add(tab);
+                    tcFiles.SelectedTab = tab;
+                }
+
+                else if (file.GetType() == typeof(ShineFile))
+                {
+                    var mainTab = new TabPage(file.DataSetName);
+                    var tcTables = new TabControl();
+                    tcTables.Dock = DockStyle.Fill;
+
+                    tcTables.SelectedIndexChanged += new EventHandler((object s, EventArgs e) =>
+                    {
+                        file.SelectedIndex = tcTables.SelectedIndex;
+                    });
+
+                    mainTab.Controls.Add(tcTables);
+                    tcFiles.TabPages.Add(mainTab);
+                    mainTab.BackColor = Color.White;
+
+                    foreach (var table in file.Tables)
+                    {
+                        dgv = new DataGridView();
+                        dgv.Dock = DockStyle.Fill;
+                        dgv.BackgroundColor = Color.WhiteSmoke;
+                        dgv.DoubleBuffered(true);
+                        dgv.DataSource = table;
+
+                        dgv.CellEnter += File_CellEnter;
+
+                        var tab = new TabPage(table.TableName);
+                        table.RowChanged += new DataRowChangeEventHandler(File_RowChanged);
+                        tab.Controls.Add(dgv);
+
+                        tcTables.TabPages.Add(tab);
+                        tcTables.SelectedTab = tab;
+                    }
+                }
+
+                LoadedFiles.Add(file);
 
                 // Hide and reset the progressbar.
                 pbProgress.Visible = false;
@@ -268,7 +310,16 @@ namespace iShine
                     file = (SHNFile)file;
 
                 else if (file.GetType() == typeof(ShineFile))
+                {
                     file = (ShineFile)file;
+                    var table = file.Tables[((ShineFile)file).SelectedIndex];
+
+                    lblFileInfo.Text = String.Format("Rows: {1}, Columns: {2}  |  {0}",
+                        file.IsSaved ? "Saved" : "Dirty",
+                        table.RowCount, table.ColumnCount);
+
+                    return;
+                }
 
                 else if (file.GetType() == typeof(QuestFile))
                     file = (QuestFile)file;

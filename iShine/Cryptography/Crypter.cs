@@ -5,6 +5,8 @@ namespace iShine.Cryptography
 {
     public static class Crypter
     {
+        public static byte[] XorTable = new byte[] { 15, 0x55, 11, 170 };
+
         [DebuggerStepThrough]
         public static void Crypt(byte[] data, int startIndex, int length)
         {
@@ -18,11 +20,11 @@ namespace iShine.Cryptography
             {
                 data[i] = (byte)(data[i] ^ xorBy);
                 byte xorByNext = (byte)i;
-                xorByNext = (byte)(xorByNext & 15);
-                xorByNext = (byte)(xorByNext + 0x55);
-                xorByNext = (byte)(xorByNext ^ ((byte)(((byte)i) * 11)));
+                xorByNext = (byte)(xorByNext & XorTable[0]);
+                xorByNext = (byte)(xorByNext + XorTable[1]);
+                xorByNext = (byte)(xorByNext ^ ((byte)(((byte)i) * XorTable[2])));
                 xorByNext = (byte)(xorByNext ^ xorBy);
-                xorByNext = (byte)(xorByNext ^ 170);
+                xorByNext = (byte)(xorByNext ^ XorTable[3]);
                 xorBy = xorByNext;
             }
         }
