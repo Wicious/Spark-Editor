@@ -9,7 +9,7 @@ using iShine.Cryptography;
 using System.Windows.Forms;
 using System.Reflection;
 
-namespace iShine.ShineFile
+namespace iShine.FiestaLib
 {
     public class SHNFile : DataTable, IFile
     {

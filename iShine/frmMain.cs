@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using iShine.ShineFile;
+using iShine.FiestaLib;
 using System.IO;
 
 namespace iShine
@@ -20,7 +20,6 @@ namespace iShine
         public frmMain()
         {
             InitializeComponent();
-            mainMenu.Renderer = new ToolStripProfessionalRenderer(new Controls.LightMenuColorTable());
         }
 
         private void btnOpenFile_Click(object sender, EventArgs e)
