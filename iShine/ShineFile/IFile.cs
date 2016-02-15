@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace iShine.File
+namespace iShine.ShineFile
 {
     public interface IFile
     {

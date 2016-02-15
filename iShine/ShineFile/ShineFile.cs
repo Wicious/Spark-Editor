@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace iShine.File
+namespace iShine.ShineFile
 {
-    public class QuestFile : IFile
+    public class ShineFile : IFile
     {
         public async Task Load(IProgress<int> progress)
         {

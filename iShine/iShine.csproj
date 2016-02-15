@@ -56,10 +56,10 @@
     <Compile Include="Controls\LightMenuColorTable.cs" />
     <Compile Include="Cryptography\Crypter.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="File\IFile.cs" />
-    <Compile Include="File\QuestFile.cs" />
-    <Compile Include="File\ShineFile.cs" />
-    <Compile Include="File\SHNFile.cs">
+    <Compile Include="ShineFile\IFile.cs" />
+    <Compile Include="ShineFile\QuestFile.cs" />
+    <Compile Include="ShineFile\ShineFile.cs" />
+    <Compile Include="ShineFile\SHNFile.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="frmMain.cs">
@@ -70,6 +70,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShineFile\SHNTypeAttribute.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>

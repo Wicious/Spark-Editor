@@ -7,13 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using iShine.Cryptography;
 using System.Windows.Forms;
+using System.Reflection;
 
-namespace iShine.File
+namespace iShine.ShineFile
 {
     public class SHNFile : DataTable, IFile
     {
-        public byte[] BaseHeader { get; set; }
-        public uint DataHeader { get; set; }
+        public byte[] BaseHeader { get; private set; }
+        public uint DataHeader { get; private set; }
 
         public int ColumnCount { get { return Columns.Count; } }
         public int RowCount { get { return Rows.Count; } }
@@ -39,9 +40,9 @@ namespace iShine.File
         /// <param name="progress"></param>
         public async Task Load(IProgress<int> progress)
         {
-            using (reader = new BinaryReader(System.IO.File.OpenRead(FilePath)))
+            using (reader = new BinaryReader(File.OpenRead(FilePath)))
             {
-                writer = new BinaryWriter(System.IO.File.OpenWrite(FilePath + ".clear"));
+                writer = new BinaryWriter(File.OpenWrite(FilePath + ".clear"));
 
                 // Save file's header.
                 BaseHeader = reader.ReadBytes(0x20);
@@ -76,8 +77,8 @@ namespace iShine.File
                         unknownColumnCount++;
                     }
 
-                    var shnColumn = new SHNColumn(columnName, columnLength);
-                    shnColumn.DataType = getTypeFromID(columnType, shnColumn);
+                    var shnType = getSHNTypeFromID(columnType);
+                    var shnColumn = new SHNColumn(columnName, columnLength, shnType, getTypeFromID(columnType));
 
                     Columns.Add(shnColumn);
                     recordLength += columnLength;
@@ -94,6 +95,25 @@ namespace iShine.File
             }
         }
 
+        private SHNType getSHNTypeFromID(uint columnType)
+        {
+            var type = typeof(SHNType);
+            if (!type.IsEnum) throw new InvalidOperationException();
+            foreach (var field in type.GetFields())
+            {
+                var attribute = Attribute.GetCustomAttribute(field,
+                    typeof(SHNTypeAttribute)) as SHNTypeAttribute;
+                if (attribute != null)
+                {
+                    if (attribute.Values.Contains(columnType))
+                        return (SHNType)field.GetValue(null);
+                }
+
+            }
+
+            return SHNType.Default;
+        }
+
         private void readRows(IProgress<int> progress)
         {
             int percent = 0;
@@ -106,7 +126,7 @@ namespace iShine.File
                 {
                     var type = Columns[x].DataType;
 
-                    if (((SHNColumn)Columns[x]).IsUnknownLength)
+                    if (((SHNColumn)Columns[x]).SHNType == SHNType.UnknownLengthString)
                         row[x] = reader.ReadStringUntilZero();
 
                     else if (type == typeof(byte))
@@ -153,7 +173,7 @@ namespace iShine.File
             var stream = new MemoryStream();
             writer = new BinaryWriter(stream);
 
-            writer.Write(BaseHeader);
+            writer.Write(DataHeader);
             writer.Write(RowCount);
             writer.Write(defaultRecordLength);
             writer.Write(ColumnCount);
@@ -175,7 +195,7 @@ namespace iShine.File
 
             writeRows(new Progress<int>(p => progress.Report(p)));
 
-            stream.WriteTo(System.IO.File.OpenWrite("filetest.save"));
+            stream.WriteTo(File.OpenWrite("filetest.save"));
         }
 
         private void writeRows(IProgress<int> prog)
@@ -201,91 +221,88 @@ namespace iShine.File
             }
         }
 
-        private Type getTypeFromID(uint columnType, SHNColumn col)
+        private Type getTypeFromID(uint columnType)
         {
-            switch (columnType)
+            foreach (var mem in typeof(SHNType).GetMembers())
             {
-                case 0x01:
-                case 0x0C:
-                case 0x10:
-                    return typeof(byte);
-
-                case 0x02:
-                    return typeof(ushort);
-
-                case 0x09:
-                case 0x18:
-                    return typeof(string);
-
-                case 0x1A:
-                    col.IsUnknownLength = true;
-                    return typeof(string);
-
-                case 0x03:
-                case 0x0B:
-                case 0x12:
-                case 0x1B:
-                    return typeof(uint);
-
-                case 0x05:
-                    return typeof(Single);
-
-                case 0x15:
-                case 0x0D:
-                    return typeof(short);
-
-                case 0x14:
-                    return typeof(sbyte);
-
-                case 0x16:
-                    return typeof(int);
-
-                default:
-                    return typeof(object);
+                var attributes = mem.GetCustomAttributes(typeof(SHNTypeAttribute), false);
+                foreach (var attr in attributes)
+                {
+                    if (((SHNTypeAttribute)attr).Values.Contains(columnType))
+                    {
+                        return ((SHNTypeAttribute)attr).Type;
+                    }
+                }
             }
+
+            return typeof(object);
         }
 
         private uint getIDFromType(Type columnType)
         {
-            if (columnType == typeof(byte))
-                return 0x0C;
+            foreach (var mem in typeof(SHNType).GetMembers())
+            {
+                var attributes = mem.GetCustomAttributes(typeof(SHNTypeAttribute), false);
+                foreach (var attr in attributes)
+                {
+                    if (((SHNTypeAttribute)attr).Type == columnType)
+                    {
+                        return ((SHNTypeAttribute)attr).Values[0];
+                    }
+                }
+            }
 
-            else if (columnType == typeof(ushort))
-                return 0x02;
-
-            else if (columnType == typeof(string))
-                return 0x09;
-
-            else if (columnType == typeof(uint))
-                return 0x0B;
-
-            else if (columnType == typeof(Single))
-                return 0x05;
-
-            else if (columnType == typeof(short))
-                return 0x15;
-
-            else if (columnType == typeof(sbyte))
-                return 0x14;
-
-            else if (columnType == typeof(int))
-                return 0x16;
-
-            else
-                return 0x09;
+            return 0x09;
         }
-
     }
 }
 
 public class SHNColumn : DataColumn
 {
     public int Length { get; set; }
-    public bool IsUnknownLength { get; set; }
+    public SHNType SHNType { get; set; }
 
-    public SHNColumn(string name, int length)
-        : base(name)
+    public SHNColumn(string name, int length, SHNType shnType, Type dataType)
+        : base(name, dataType)
     {
         Length = length;
+        SHNType = shnType;
     }
 }
+
+public enum SHNType
+{
+
+    [SHNType(typeof(string), 0x09, 0x18)]
+    String,
+
+    [SHNType(typeof(byte), 0x01, 0x0C, 0x10)]
+    Byte,
+
+    [SHNType(typeof(ushort), 0x02)]
+    UShort,
+
+    [SHNType(typeof(string), 0x1A)]
+    UnknownLengthString,
+
+    [SHNType(typeof(uint), 0x03, 0x0B, 0x12, 0x1B)]
+    UInt,
+
+    [SHNType(typeof(Single), 0x05)]
+    Single,
+
+    [SHNType(typeof(short), 0x15, 0x0D)]
+    Short,
+
+    [SHNType(typeof(sbyte), 0x14)]
+    SByte,
+
+    [SHNType(typeof(int), 0x16)]
+    Int,
+
+    [SHNType(typeof(object))]
+    Default
+}
+
+
+

@@ -64,5 +64,7 @@ namespace iShine
             str = str.Replace(char.ConvertFromUtf32(10), "\\n");
             return str;
         }
+
+        
     }
 }
