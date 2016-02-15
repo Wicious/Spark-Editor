@@ -19,6 +19,7 @@ namespace iShine.FiestaLib
         public int ColumnCount { get { return Columns.Count; } }
         public int RowCount { get { return Rows.Count; } }
         public string FilePath { get; private set; }
+        public bool IsSaved { get; set; }
 
         private BinaryReader reader { get; set; }
         private BinaryWriter writer { get; set; }
@@ -97,6 +98,7 @@ namespace iShine.FiestaLib
                 }
 
                 readRows(new Progress<int>(p => progress.Report(p)));
+                IsSaved = true;
             }
         }
 
@@ -216,6 +218,8 @@ namespace iShine.FiestaLib
 
             FilePath = filePath;
         }
+
+
 
         private void writeRows(IProgress<int> prog)
         {

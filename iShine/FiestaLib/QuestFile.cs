@@ -9,6 +9,7 @@ namespace iShine.FiestaLib
     public class QuestFile : IFile
     {
         public string FilePath { get; private set; }
+        public bool IsSaved { get; set; }
 
         string IFile.FilePath
         {
