@@ -27,6 +27,14 @@ namespace iShine.FiestaLib
         private uint columnCount { get; set; }
         private uint defaultRecordLength { get; set; }
 
+        string IFile.FilePath
+        {
+            get
+            {
+                return FilePath;
+            }
+        }
+
         public SHNFile(string filePath)
         {
             FilePath = filePath;
@@ -42,7 +50,6 @@ namespace iShine.FiestaLib
         {
             using (reader = new BinaryReader(File.OpenRead(FilePath)))
             {
-                writer = new BinaryWriter(File.OpenWrite(FilePath + ".clear"));
 
                 // Save file's header.
                 BaseHeader = reader.ReadBytes(0x20);
@@ -88,8 +95,6 @@ namespace iShine.FiestaLib
                 {
                     throw new Exception("Record length is invalid!");
                 }
-                writer.Write(fileData);
-                writer.Close();
 
                 readRows(new Progress<int>(p => progress.Report(p)));
             }
@@ -168,7 +173,7 @@ namespace iShine.FiestaLib
         /// to report progress to the calling thread.
         /// </summary>
         /// <param name="progress"></param>
-        public async Task Save(IProgress<int> progress)
+        public async Task Save(string filePath, IProgress<int> progress)
         {
             var stream = new MemoryStream();
             writer = new BinaryWriter(stream);
@@ -195,29 +200,112 @@ namespace iShine.FiestaLib
 
             writeRows(new Progress<int>(p => progress.Report(p)));
 
-            stream.WriteTo(File.OpenWrite("filetest.save"));
+            var length = stream.Length;
+            var destinationArray = new byte[length];
+
+            Array.Copy(stream.GetBuffer(), destinationArray, length);
+            Crypter.Crypt(destinationArray, 0, destinationArray.Length);
+
+            writer.Close();
+            writer = new BinaryWriter(File.Create(filePath));
+
+            writer.Write(BaseHeader);
+            writer.Write(destinationArray.Length + 0x24);
+            writer.Write(destinationArray);
+            writer.Close();
+
+            FilePath = filePath;
         }
 
         private void writeRows(IProgress<int> prog)
         {
+            int percent = 0;
+            int i = 0;
+
             foreach (DataRow row in Rows)
             {
+                var position = writer.BaseStream.Position;
                 writer.Write((ushort)0x00);
 
                 foreach (SHNColumn col in Columns)
                 {
-                    dynamic value = row[col];
+                    var value = row[col];
 
-                    if (value == null)
-                        value = "0";
+                    switch (col.SHNType)
+                    {
+                        case SHNType.String:
+                            writer.WriteString(value.ToString(), col.Length);
+                            break;
 
-                    var type = col.DataType;
+                        case SHNType.Byte:
+                            if (value is string)
+                                value = byte.Parse((string)value);
 
-                    if (type == typeof(string))
-                        writer.WriteString((string)value, col.Length);
+                            writer.Write((byte)value);
+                            break;
 
-                    writer.Write(value);
+                        case SHNType.Int:
+                            if (value is string)
+                                value = int.Parse((string)value);
+
+                            writer.Write((int)value);
+                            break;
+
+                        case SHNType.SByte:
+                            if (value is string)
+                                value = sbyte.Parse((string)value);
+
+                            writer.Write((sbyte)value);
+                            break;
+
+                        case SHNType.Short:
+                            if (value is string)
+                                value = short.Parse((string)value);
+
+                            writer.Write((short)value);
+                            break;
+
+                        case SHNType.Single:
+                            if (value is string)
+                                value = Single.Parse((string)value);
+
+                            writer.Write((Single)value);
+                            break;
+
+                        case SHNType.UInt:
+                            if (value is string)
+                                value = uint.Parse((string)value);
+
+                            writer.Write((uint)value);
+                            break;
+
+                        case SHNType.UnknownLengthString:
+                            writer.WriteString(value.ToString(), -1);
+                            break;
+
+                        case SHNType.UShort:
+                            if (value is string)
+                                value = ushort.Parse((string)value);
+
+                            writer.Write((ushort)value);
+                            break;
+
+                        case SHNType.Default:
+                            break;
+                    }
                 }
+
+                percent = Convert.ToInt32(((double)i / (double)RowCount) * 100);
+                prog.Report(percent);
+
+                i++;
+
+                var currentPosition = writer.BaseStream.Position;
+                var size = currentPosition - position;
+
+                writer.BaseStream.Seek(position, SeekOrigin.Begin);
+                writer.Write((ushort)size);
+                writer.BaseStream.Seek(currentPosition, SeekOrigin.Begin);
             }
         }
 

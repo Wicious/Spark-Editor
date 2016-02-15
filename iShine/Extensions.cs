@@ -30,17 +30,24 @@ namespace iShine
 
         public static void WriteString(this BinaryWriter writer, string str, int length)
         {
+            // Replace \n with 0x0A which is the new line character.
+            str = str.Replace("\\n", Environment.NewLine);
+
+            // If there is no defined length
+            if (length == -1)
+            {
+                writer.Write(Encoding.Default.GetBytes(str));
+                writer.Write((byte)0);
+                return;
+            }
+
             writer.Write(Encoding.Default.GetBytes(str));
 
-            for(int i = str.Length; i < length; i++)
+            // Fill rest with zeros
+            for (int i = str.Length; i < length; i++)
             {
                 writer.Write((byte)0x00);
             }
-        }
-
-        public static Type GetDataType(this DataColumn col)
-        {
-            return col.GetType();
         }
 
         public static void DoubleBuffered(this DataGridView dgv, bool setting)
@@ -53,7 +60,7 @@ namespace iShine
         public static String ReadStringUntilZero(this BinaryReader reader)
         {
             int count = 0;
-            for (byte i = reader.ReadByte(); i != 0; i = reader.ReadByte()) 
+            for (byte i = reader.ReadByte(); i != 0; i = reader.ReadByte())
             {
                 Buffer[count++] = i;
                 if (count >= 0x100)
@@ -64,7 +71,5 @@ namespace iShine
             str = str.Replace(char.ConvertFromUtf32(10), "\\n");
             return str;
         }
-
-        
     }
 }

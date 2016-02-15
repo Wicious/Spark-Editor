@@ -85,19 +85,47 @@ namespace iShine
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
-        private async void btnSave_Click(object sender, EventArgs e)
+        private async void saveFile(string filePath)
         {
-            var file = LoadedFiles[tcFiles.SelectedIndex];
+            try
+            {
+                // Display the hidden progressbar in the statusbar.
+                pbProgress.Visible = true;
 
-            await Task.Run(() => file.Save(new Progress<int>(value =>
-                            mainStatusStrip.Invoke(new MethodInvoker(() =>
-                            {
-                                pbProgress.Value = value;
-                            }))
-                        )));
+                var file = LoadedFiles[tcFiles.SelectedIndex];
+
+                lblStatus.Text = "Saving " + Path.GetFileName(file.FilePath);
+
+                // Await the asynchronous Save method and display the reported progress in our progressbar.
+                await Task.Run(() => file.Save(filePath, new Progress<int>(value =>
+                    mainStatusStrip.Invoke(new MethodInvoker(() =>
+                    {
+                        pbProgress.Value = value;
+                    }))
+                )));
+
+                // Hide and reset the progressbar.
+                pbProgress.Visible = false;
+                pbProgress.Value = 0;
+                lblStatus.Text = "Ready";
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            saveFile(LoadedFiles[tcFiles.SelectedIndex].FilePath);
+        }
+
+        private void btnSaveAs_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

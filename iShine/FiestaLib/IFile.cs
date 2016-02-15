@@ -8,7 +8,8 @@ namespace iShine.FiestaLib
 {
     public interface IFile
     {
+        string FilePath { get; }
         Task Load(IProgress<int> progress);
-        Task Save(IProgress<int> progress);
+        Task Save(string filePath, IProgress<int> progress);
     }
 }
