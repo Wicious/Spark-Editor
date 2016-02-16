@@ -44,6 +44,8 @@ namespace iShine.FiestaLib
             {
                 lines = File.ReadAllLines(FilePath).ToList();
 
+
+                int percent = 0;
                 for (int i = 0; i < lines.Count; i++)
                 {
                     string str = lines[i];
@@ -97,11 +99,11 @@ namespace iShine.FiestaLib
                         List<string> values = str.Split('\t').Skip(1).ToList();
                         string table = values[0];
 
-                        var row = Tables.Cast<DataTable>().AsEnumerable().Where(x => x.Table.TableName == table).First().Table.NewRow();
+                        var row = Tables.Cast<DataTable>().AsEnumerable().Where(x => x.TableName == table).First().NewRow();
                         values.RemoveAt(0);
                         row.ItemArray = values.ToArray<string>();
 
-                        Tables.Cast<DataTable>().AsEnumerable().Where(x => x.Table.TableName == table).First().Table.Rows.Add(row);
+                        Tables.Cast<DataTable>().AsEnumerable().Where(x => x.TableName == table).First().Rows.Add(row);
                     }
 
                     else if (str.ToLower().StartsWith("#record"))
@@ -115,6 +117,7 @@ namespace iShine.FiestaLib
                         row.ItemArray = values;
 
                         Tables[Tables.Count - 1].Rows.Add(row);
+
                     }
 
                     else if (str.Contains(";"))
@@ -123,12 +126,16 @@ namespace iShine.FiestaLib
                         str = str.Trim();
                     }
 
+                    percent = Convert.ToInt32(((double)i / lines.Count) * 100);
+                    progress.Report(percent);
                 }
             }
         }
 
         public async Task Save(string filePath, IProgress<int> progress)
         {
+            double i = 0;
+            int percent = 0;
             using (var writer = new StreamWriter(filePath))
             {
                 writer.WriteLine("#ignore\t\\o042");
@@ -153,6 +160,9 @@ namespace iShine.FiestaLib
                     foreach (DataRow row in table.Rows)
                     {
                         writer.WriteLine("#Record\t" + string.Join("\t", row.ItemArray));
+
+                        percent = Convert.ToInt32((i / lines.Count) * 100);
+                        progress.Report(percent);
                     }
 
                 }

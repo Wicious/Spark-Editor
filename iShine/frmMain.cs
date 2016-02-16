@@ -71,6 +71,9 @@ namespace iShine
                     }))
                 )));
 
+                LoadedFiles.Add(file);
+
+
                 if (file.GetType() == typeof(SHNFile))
                 {
                     dgv = new DataGridView();
@@ -86,7 +89,7 @@ namespace iShine
                     tab.Controls.Add(dgv);
 
                     tcFiles.TabPages.Add(tab);
-                    tcFiles.SelectedTab = tab;
+                    tcFiles.SelectedIndex = tcFiles.TabPages.Count - 1;
                 }
 
                 else if (file.GetType() == typeof(ShineFile))
@@ -104,6 +107,8 @@ namespace iShine
                     tcFiles.TabPages.Add(mainTab);
                     mainTab.BackColor = Color.White;
 
+                    tcFiles.SelectedIndex = tcFiles.TabCount - 1;
+
                     foreach (var table in file.Tables)
                     {
                         dgv = new DataGridView();
@@ -119,11 +124,9 @@ namespace iShine
                         tab.Controls.Add(dgv);
 
                         tcTables.TabPages.Add(tab);
-                        tcTables.SelectedTab = tab;
                     }
                 }
 
-                LoadedFiles.Add(file);
 
                 // Hide and reset the progressbar.
                 pbProgress.Visible = false;

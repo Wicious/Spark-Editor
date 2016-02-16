@@ -22,10 +22,6 @@ namespace iShine
             return str;
         }
 
-        public static T Cast<T>(this object input)
-        {
-            return (T)input;
-        }
 
 
         public static void WriteString(this BinaryWriter writer, string str, int length)
