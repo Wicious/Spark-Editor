@@ -20,6 +20,7 @@ namespace iShine.FiestaLib
         public int RowCount { get { return Rows.Count; } }
         public string FilePath { get; private set; }
         public bool IsSaved { get; set; }
+        public Encryption Encryption { get; set; }
 
         private BinaryReader reader { get; set; }
         private BinaryWriter writer { get; set; }
@@ -206,7 +207,11 @@ namespace iShine.FiestaLib
             var destinationArray = new byte[length];
 
             Array.Copy(stream.GetBuffer(), destinationArray, length);
-            Crypter.Crypt(destinationArray, 0, destinationArray.Length);
+
+            if (Encryption != null)
+                Crypter.Crypt(Encryption, destinationArray, 0, destinationArray.Length);
+            else
+                Crypter.Crypt(destinationArray, 0, destinationArray.Length);
 
             writer.Close();
             writer = new BinaryWriter(File.Create(filePath));

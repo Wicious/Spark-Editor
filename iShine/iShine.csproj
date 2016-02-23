@@ -60,6 +60,7 @@
       <DependentUpon>QuestPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Cryptography\Crypter.cs" />
+    <Compile Include="Cryptography\Encryption.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FiestaLib\IFile.cs" />
     <Compile Include="FiestaLib\QuestFile.cs" />
@@ -68,6 +69,30 @@
     </Compile>
     <Compile Include="FiestaLib\SHNFile.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\Options\frmOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Options\frmOptions.Designer.cs">
+      <DependentUpon>frmOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Options\pCopyPaste.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Options\pCopyPaste.Designer.cs">
+      <DependentUpon>pCopyPaste.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Options\pEncoding.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Options\pEncoding.Designer.cs">
+      <DependentUpon>pEncoding.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Options\pEncryption.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Options\pEncryption.Designer.cs">
+      <DependentUpon>pEncryption.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -80,6 +105,18 @@
     <Compile Include="FiestaLib\SHNTypeAttribute.cs" />
     <EmbeddedResource Include="Controls\QuestPanel.resx">
       <DependentUpon>QuestPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Options\frmOptions.resx">
+      <DependentUpon>frmOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Options\pCopyPaste.resx">
+      <DependentUpon>pCopyPaste.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Options\pEncoding.resx">
+      <DependentUpon>pEncoding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Options\pEncryption.resx">
+      <DependentUpon>pEncryption.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using iShine.FiestaLib;
 using System.IO;
 using iShine.Controls;
+using iShine.Forms.Options;
 
 namespace iShine
 {
@@ -58,6 +59,7 @@ namespace iShine
 
                             var tab = new TabPage(Path.GetFileName(file.FilePath));
                             var qPanel = new QuestPanel(file);
+                            qPanel.Dock = DockStyle.Fill;
                             tab.BackColor = Color.White;
                             tab.Controls.Add(qPanel);
 
@@ -405,6 +407,14 @@ namespace iShine
             }
 
             Environment.Exit(0);
+        }
+
+        private void btnOptions_Click(object sender, EventArgs e)
+        {
+            using (var frm = new frmOptions())
+            {
+                frm.ShowDialog(this);
+            }
         }
     }
 }

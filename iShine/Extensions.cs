@@ -17,7 +17,7 @@ namespace iShine
 
         public static string ReadString(this BinaryReader reader, int length)
         {
-            var str = Encoding.Default.GetString(reader.ReadBytes(length));
+            var str = Program.DefaultEncoding.GetString(reader.ReadBytes(length));
             str = str.Trim((char)0x00);
 
             return str;
@@ -31,12 +31,12 @@ namespace iShine
             // If there is no defined length
             if (length == -1)
             {
-                writer.Write(Encoding.Default.GetBytes(str));
+                writer.Write(Program.DefaultEncoding.GetBytes(str));
                 writer.Write((byte)0);
                 return;
             }
 
-            writer.Write(Encoding.Default.GetBytes(str));
+            writer.Write(Program.DefaultEncoding.GetBytes(str));
 
             // Fill rest with zeros
             for (int i = str.Length; i < length; i++)
@@ -62,7 +62,7 @@ namespace iShine
                 if (count >= 0x100)
                     break;
             }
-            string str = Encoding.Default.GetString(Buffer, 0, count);
+            string str = Program.DefaultEncoding.GetString(Buffer, 0, count);
             if (count == 0x100) { str = str + reader.ReadStringUntilZero(); }
             str = str.Replace(char.ConvertFromUtf32(10), "\\n");
             return str;

@@ -14,6 +14,7 @@ namespace iShine.Controls
     public partial class QuestPanel : UserControl
     {
         public QuestFile file;
+        public Quest SelectedQuest { get; private set; }
         public QuestPanel(QuestFile file)
         {
             InitializeComponent();
@@ -34,8 +35,15 @@ namespace iShine.Controls
 
         private void lbQuests_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var quest = (Quest)lbQuests.Items[lbQuests.SelectedIndex];
-            pgQuestProperties.SelectedObject = quest;
+            SelectedQuest = (Quest)lbQuests.Items[lbQuests.SelectedIndex];
+
+            pgQuestProperties.SelectedObject = SelectedQuest;
+            lblQuestName.Text = SelectedQuest.TitleString;
+        }
+
+        private void QuestPanel_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }
