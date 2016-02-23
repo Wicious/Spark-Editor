@@ -56,6 +56,7 @@ namespace iShine
                         {
                             file = new QuestFile(fileName);
                             LoadedFiles.Add(file);
+                            Extensions.FileType = FileType.QuestFile;
 
                             var tab = new TabPage(Path.GetFileName(file.FilePath));
                             var qPanel = new QuestPanel(file);
@@ -76,10 +77,14 @@ namespace iShine
 
                         else
                             file = new SHNFile(fileName);
+                            Extensions.FileType = FileType.SHNFile;
+
                         break;
 
                     case ".txt":
                         file = new ShineFile(fileName);
+                        Extensions.FileType = FileType.ShineFile;
+
                         break;
 
                     default:

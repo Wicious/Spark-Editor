@@ -14,6 +14,7 @@ namespace iShine
     public static class Extensions
     {
         private static byte[] Buffer = new byte[0x100];
+        public static FileType FileType;
 
         public static string ReadString(this BinaryReader reader, int length)
         {
@@ -64,8 +65,17 @@ namespace iShine
             }
             string str = Program.DefaultEncoding.GetString(Buffer, 0, count);
             if (count == 0x100) { str = str + reader.ReadStringUntilZero(); }
-            str = str.Replace(char.ConvertFromUtf32(10), "\\n");
+
+            if (FileType != FileType.QuestFile)
+                str = str.Replace(char.ConvertFromUtf32(10), "\\n");
             return str;
         }
+    }
+
+    public enum FileType
+    {
+        QuestFile,
+        SHNFile,
+        ShineFile
     }
 }

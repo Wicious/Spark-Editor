@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.btnOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemSave = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSaveAs = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,30 +53,27 @@
             this.btnQuickReplace = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnSetRowFilter = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sQLOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.massEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.translatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fastTasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.fastTasksToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.contactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contactToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.creditsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pbProgress = new System.Windows.Forms.ToolStripProgressBar();
             this.lblCellInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblFileInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.tcFiles = new System.Windows.Forms.TabControl();
-            this.fastTasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fastTasksToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.contactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contactToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.creditsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnOptions = new System.Windows.Forms.ToolStripMenuItem();
-            this.massEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.translatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.projectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sQLOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.projectToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.projectInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.assertTranslatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.assertHelperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnContribute = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -86,7 +85,6 @@
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
             this.viewToolStripMenuItem,
-            this.projectToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.fastTasksToolStripMenuItem,
             this.contactToolStripMenuItem});
@@ -106,7 +104,7 @@
             this.toolStripMenuItem1,
             this.btnCloseTab,
             this.btnExit});
-            this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0);
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(29, 20);
@@ -116,12 +114,17 @@
             // 
             this.btnNew.BackColor = System.Drawing.SystemColors.Control;
             this.btnNew.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem1,
-            this.projectToolStripMenuItem1});
+            this.fileToolStripMenuItem1});
             this.btnNew.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(171, 22);
             this.btnNew.Text = "New";
+            // 
+            // fileToolStripMenuItem1
+            // 
+            this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.fileToolStripMenuItem1.Text = "File..";
             // 
             // btnOpenFile
             // 
@@ -139,8 +142,7 @@
             this.menuItemSave.BackColor = System.Drawing.SystemColors.Control;
             this.menuItemSave.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnSaveAs,
-            this.btnSave,
-            this.saveProjectToolStripMenuItem});
+            this.btnSave});
             this.menuItemSave.ForeColor = System.Drawing.SystemColors.ControlText;
             this.menuItemSave.Name = "menuItemSave";
             this.menuItemSave.Size = new System.Drawing.Size(171, 22);
@@ -207,7 +209,7 @@
             this.btnQuickReplace,
             this.toolStripMenuItem4,
             this.btnSetRowFilter});
-            this.editToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.editToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
@@ -300,6 +302,95 @@
             this.btnSetRowFilter.Size = new System.Drawing.Size(192, 22);
             this.btnSetRowFilter.Text = "Row Filter";
             // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sQLOutputToolStripMenuItem,
+            this.fileTreeToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // sQLOutputToolStripMenuItem
+            // 
+            this.sQLOutputToolStripMenuItem.Name = "sQLOutputToolStripMenuItem";
+            this.sQLOutputToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sQLOutputToolStripMenuItem.Text = "SQL Output";
+            // 
+            // fileTreeToolStripMenuItem
+            // 
+            this.fileTreeToolStripMenuItem.Name = "fileTreeToolStripMenuItem";
+            this.fileTreeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fileTreeToolStripMenuItem.Text = "File Tree";
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.massEditorToolStripMenuItem,
+            this.translatorToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // massEditorToolStripMenuItem
+            // 
+            this.massEditorToolStripMenuItem.Name = "massEditorToolStripMenuItem";
+            this.massEditorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.massEditorToolStripMenuItem.Text = "Mass Editor";
+            // 
+            // translatorToolStripMenuItem
+            // 
+            this.translatorToolStripMenuItem.Name = "translatorToolStripMenuItem";
+            this.translatorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.translatorToolStripMenuItem.Text = "Translator";
+            // 
+            // fastTasksToolStripMenuItem
+            // 
+            this.fastTasksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnOptions,
+            this.fastTasksToolStripMenuItem1,
+            this.extrasToolStripMenuItem});
+            this.fastTasksToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.fastTasksToolStripMenuItem.Name = "fastTasksToolStripMenuItem";
+            this.fastTasksToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.fastTasksToolStripMenuItem.Text = "Application";
+            // 
+            // btnOptions
+            // 
+            this.btnOptions.Name = "btnOptions";
+            this.btnOptions.Size = new System.Drawing.Size(152, 22);
+            this.btnOptions.Text = "Options..";
+            this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
+            // 
+            // fastTasksToolStripMenuItem1
+            // 
+            this.fastTasksToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.fastTasksToolStripMenuItem1.Name = "fastTasksToolStripMenuItem1";
+            this.fastTasksToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.fastTasksToolStripMenuItem1.Text = "Fast Tasks..";
+            // 
+            // contactToolStripMenuItem
+            // 
+            this.contactToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contactToolStripMenuItem1,
+            this.creditsToolStripMenuItem,
+            this.btnContribute});
+            this.contactToolStripMenuItem.Name = "contactToolStripMenuItem";
+            this.contactToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.contactToolStripMenuItem.Text = "Help";
+            // 
+            // contactToolStripMenuItem1
+            // 
+            this.contactToolStripMenuItem1.Name = "contactToolStripMenuItem1";
+            this.contactToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.contactToolStripMenuItem1.Text = "Contact..";
+            // 
+            // creditsToolStripMenuItem
+            // 
+            this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
+            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.creditsToolStripMenuItem.Text = "Credits..";
+            // 
             // mainStatusStrip
             // 
             this.mainStatusStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
@@ -353,131 +444,25 @@
             this.tcFiles.TabIndex = 2;
             this.tcFiles.SelectedIndexChanged += new System.EventHandler(this.tcFiles_SelectedIndexChanged);
             // 
-            // fastTasksToolStripMenuItem
+            // extrasToolStripMenuItem
             // 
-            this.fastTasksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnOptions,
-            this.fastTasksToolStripMenuItem1});
-            this.fastTasksToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.fastTasksToolStripMenuItem.Name = "fastTasksToolStripMenuItem";
-            this.fastTasksToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
-            this.fastTasksToolStripMenuItem.Text = "Application";
+            this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.assertHelperToolStripMenuItem});
+            this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
+            this.extrasToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.extrasToolStripMenuItem.Text = "Extras";
             // 
-            // fastTasksToolStripMenuItem1
+            // assertHelperToolStripMenuItem
             // 
-            this.fastTasksToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.fastTasksToolStripMenuItem1.Name = "fastTasksToolStripMenuItem1";
-            this.fastTasksToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.fastTasksToolStripMenuItem1.Text = "Fast Tasks..";
+            this.assertHelperToolStripMenuItem.Name = "assertHelperToolStripMenuItem";
+            this.assertHelperToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.assertHelperToolStripMenuItem.Text = "Assert Helper..";
             // 
-            // contactToolStripMenuItem
+            // btnContribute
             // 
-            this.contactToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contactToolStripMenuItem1,
-            this.creditsToolStripMenuItem});
-            this.contactToolStripMenuItem.Name = "contactToolStripMenuItem";
-            this.contactToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.contactToolStripMenuItem.Text = "Help";
-            // 
-            // contactToolStripMenuItem1
-            // 
-            this.contactToolStripMenuItem1.Name = "contactToolStripMenuItem1";
-            this.contactToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.contactToolStripMenuItem1.Text = "Contact..";
-            // 
-            // creditsToolStripMenuItem
-            // 
-            this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
-            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.creditsToolStripMenuItem.Text = "Credits..";
-            // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.massEditorToolStripMenuItem,
-            this.translatorToolStripMenuItem,
-            this.assertTranslatorToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // btnOptions
-            // 
-            this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(152, 22);
-            this.btnOptions.Text = "Options..";
-            this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
-            // 
-            // massEditorToolStripMenuItem
-            // 
-            this.massEditorToolStripMenuItem.Name = "massEditorToolStripMenuItem";
-            this.massEditorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.massEditorToolStripMenuItem.Text = "Mass Editor";
-            // 
-            // translatorToolStripMenuItem
-            // 
-            this.translatorToolStripMenuItem.Name = "translatorToolStripMenuItem";
-            this.translatorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.translatorToolStripMenuItem.Text = "Translator";
-            // 
-            // projectToolStripMenuItem
-            // 
-            this.projectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.projectInfoToolStripMenuItem});
-            this.projectToolStripMenuItem.Name = "projectToolStripMenuItem";
-            this.projectToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
-            this.projectToolStripMenuItem.Text = "Project";
-            // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sQLOutputToolStripMenuItem,
-            this.fileTreeToolStripMenuItem});
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
-            // 
-            // sQLOutputToolStripMenuItem
-            // 
-            this.sQLOutputToolStripMenuItem.Name = "sQLOutputToolStripMenuItem";
-            this.sQLOutputToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.sQLOutputToolStripMenuItem.Text = "SQL Output";
-            // 
-            // fileTreeToolStripMenuItem
-            // 
-            this.fileTreeToolStripMenuItem.Name = "fileTreeToolStripMenuItem";
-            this.fileTreeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.fileTreeToolStripMenuItem.Text = "File Tree";
-            // 
-            // fileToolStripMenuItem1
-            // 
-            this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
-            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.fileToolStripMenuItem1.Text = "File..";
-            // 
-            // projectToolStripMenuItem1
-            // 
-            this.projectToolStripMenuItem1.Name = "projectToolStripMenuItem1";
-            this.projectToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.projectToolStripMenuItem1.Text = "Project..";
-            // 
-            // projectInfoToolStripMenuItem
-            // 
-            this.projectInfoToolStripMenuItem.Name = "projectInfoToolStripMenuItem";
-            this.projectInfoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.projectInfoToolStripMenuItem.Text = "Project Info..";
-            // 
-            // assertTranslatorToolStripMenuItem
-            // 
-            this.assertTranslatorToolStripMenuItem.Name = "assertTranslatorToolStripMenuItem";
-            this.assertTranslatorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.assertTranslatorToolStripMenuItem.Text = "Assert Helper";
-            // 
-            // saveProjectToolStripMenuItem
-            // 
-            this.saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
-            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.saveProjectToolStripMenuItem.Text = "Save Project";
+            this.btnContribute.Name = "btnContribute";
+            this.btnContribute.Size = new System.Drawing.Size(152, 22);
+            this.btnContribute.Text = "Contribute..";
             // 
             // frmMain
             // 
@@ -489,9 +474,10 @@
             this.Controls.Add(this.tcFiles);
             this.Controls.Add(this.mainStatusStrip);
             this.Controls.Add(this.mainMenu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu;
             this.Name = "frmMain";
-            this.Text = "iShine";
+            this.Text = "iShine - Fiesta Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.frmMain_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.frmMain_DragEnter);
@@ -545,14 +531,12 @@
         private System.Windows.Forms.ToolStripMenuItem massEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem translatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sQLOutputToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileTreeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem projectInfoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem assertTranslatorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveProjectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem extrasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem assertHelperToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnContribute;
     }
 }
 

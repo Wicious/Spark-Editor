@@ -224,8 +224,6 @@ namespace iShine.FiestaLib
             FilePath = filePath;
         }
 
-
-
         private void writeRows(IProgress<int> prog)
         {
             int percent = 0;
