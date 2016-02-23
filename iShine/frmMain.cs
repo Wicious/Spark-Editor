@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using iShine.FiestaLib;
 using System.IO;
+using iShine.Controls;
 
 namespace iShine
 {
@@ -50,7 +51,29 @@ namespace iShine
                 switch (Path.GetExtension(fileName))
                 {
                     case ".shn":
-                        file = new SHNFile(fileName);
+                        if (Path.GetFileNameWithoutExtension(fileName).ToLower() == "questdata")
+                        {
+                            file = new QuestFile(fileName);
+                            LoadedFiles.Add(file);
+
+                            var tab = new TabPage(Path.GetFileName(file.FilePath));
+                            var qPanel = new QuestPanel(file);
+                            tab.BackColor = Color.White;
+                            tab.Controls.Add(qPanel);
+
+                            tcFiles.TabPages.Add(tab);
+                            tcFiles.SelectedIndex = tcFiles.TabPages.Count - 1;
+
+                            pbProgress.Visible = false;
+                            pbProgress.Value = 0;
+                            lblStatus.Text = "Ready";
+                            updateFileInfo();
+
+                            return;
+                        }
+
+                        else
+                            file = new SHNFile(fileName);
                         break;
 
                     case ".txt":
@@ -72,7 +95,6 @@ namespace iShine
                 )));
 
                 LoadedFiles.Add(file);
-
 
                 if (file.GetType() == typeof(SHNFile))
                 {
@@ -312,6 +334,16 @@ namespace iShine
                 if (file.GetType() == typeof(SHNFile))
                     file = (SHNFile)file;
 
+                else if (file.GetType() == typeof(QuestFile))
+                {
+                    file = (QuestFile)file;
+                    lblFileInfo.Text = String.Format("Quests: {1}  |  {0}",
+                        file.IsSaved ? "Saved" : "Dirty",
+                        file.QuestCount);
+
+                    return;
+                }
+
                 else if (file.GetType() == typeof(ShineFile))
                 {
                     file = (ShineFile)file;
@@ -367,6 +399,7 @@ namespace iShine
                     else if (result == DialogResult.Cancel)
                     {
                         e.Cancel = true;
+                        return;
                     }
                 }
             }

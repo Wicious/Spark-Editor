@@ -53,11 +53,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\QuestPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\QuestPanel.Designer.cs">
+      <DependentUpon>QuestPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cryptography\Crypter.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FiestaLib\IFile.cs" />
     <Compile Include="FiestaLib\QuestFile.cs" />
-    <Compile Include="FiestaLib\ShineFile.cs" />
+    <Compile Include="FiestaLib\ShineFile.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FiestaLib\SHNFile.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -70,6 +78,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FiestaLib\SHNTypeAttribute.cs" />
+    <EmbeddedResource Include="Controls\QuestPanel.resx">
+      <DependentUpon>QuestPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>

@@ -38,25 +38,25 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCloseTab = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.pbProgress = new System.Windows.Forms.ToolStripProgressBar();
-            this.tcFiles = new System.Windows.Forms.TabControl();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnEditColumns = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnEditHeader = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnEditEncryption = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCutRows = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCopyRows = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPasteRows = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnEditHeader = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnEditEncryption = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnQuickFind = new System.Windows.Forms.ToolStripMenuItem();
             this.btnQuickReplace = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnSetRowFilter = new System.Windows.Forms.ToolStripMenuItem();
-            this.lblFileInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pbProgress = new System.Windows.Forms.ToolStripProgressBar();
             this.lblCellInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblFileInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tcFiles = new System.Windows.Forms.TabControl();
             this.mainMenu.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -69,7 +69,7 @@
             this.editToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(932, 24);
+            this.mainMenu.Size = new System.Drawing.Size(894, 24);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -164,45 +164,6 @@
             this.btnExit.Text = "Exit";
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // mainStatusStrip
-            // 
-            this.mainStatusStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblStatus,
-            this.pbProgress,
-            this.lblCellInfo,
-            this.lblFileInfo});
-            this.mainStatusStrip.Location = new System.Drawing.Point(0, 560);
-            this.mainStatusStrip.Name = "mainStatusStrip";
-            this.mainStatusStrip.Size = new System.Drawing.Size(932, 22);
-            this.mainStatusStrip.SizingGrip = false;
-            this.mainStatusStrip.TabIndex = 1;
-            this.mainStatusStrip.Text = "statusStrip1";
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.ForeColor = System.Drawing.Color.White;
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(39, 17);
-            this.lblStatus.Text = "Ready";
-            // 
-            // pbProgress
-            // 
-            this.pbProgress.Margin = new System.Windows.Forms.Padding(10, 3, 1, 3);
-            this.pbProgress.Name = "pbProgress";
-            this.pbProgress.Size = new System.Drawing.Size(100, 16);
-            this.pbProgress.Visible = false;
-            // 
-            // tcFiles
-            // 
-            this.tcFiles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tcFiles.Location = new System.Drawing.Point(0, 24);
-            this.tcFiles.Name = "tcFiles";
-            this.tcFiles.SelectedIndex = 0;
-            this.tcFiles.Size = new System.Drawing.Size(932, 536);
-            this.tcFiles.TabIndex = 2;
-            this.tcFiles.SelectedIndexChanged += new System.EventHandler(this.tcFiles_SelectedIndexChanged);
-            // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -227,6 +188,18 @@
             this.btnEditColumns.Name = "btnEditColumns";
             this.btnEditColumns.Size = new System.Drawing.Size(192, 22);
             this.btnEditColumns.Text = "Columns..";
+            // 
+            // btnEditHeader
+            // 
+            this.btnEditHeader.Name = "btnEditHeader";
+            this.btnEditHeader.Size = new System.Drawing.Size(192, 22);
+            this.btnEditHeader.Text = "Header..";
+            // 
+            // btnEditEncryption
+            // 
+            this.btnEditEncryption.Name = "btnEditEncryption";
+            this.btnEditEncryption.Size = new System.Drawing.Size(192, 22);
+            this.btnEditEncryption.Text = "Encryption..";
             // 
             // toolStripMenuItem2
             // 
@@ -253,18 +226,6 @@
             this.btnPasteRows.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.btnPasteRows.Size = new System.Drawing.Size(192, 22);
             this.btnPasteRows.Text = "Paste";
-            // 
-            // btnEditHeader
-            // 
-            this.btnEditHeader.Name = "btnEditHeader";
-            this.btnEditHeader.Size = new System.Drawing.Size(192, 22);
-            this.btnEditHeader.Text = "Header..";
-            // 
-            // btnEditEncryption
-            // 
-            this.btnEditEncryption.Name = "btnEditEncryption";
-            this.btnEditEncryption.Size = new System.Drawing.Size(192, 22);
-            this.btnEditEncryption.Text = "Encryption..";
             // 
             // toolStripMenuItem3
             // 
@@ -298,13 +259,34 @@
             this.btnSetRowFilter.Size = new System.Drawing.Size(192, 22);
             this.btnSetRowFilter.Text = "Row Filter";
             // 
-            // lblFileInfo
+            // mainStatusStrip
             // 
-            this.lblFileInfo.ForeColor = System.Drawing.Color.White;
-            this.lblFileInfo.Name = "lblFileInfo";
-            this.lblFileInfo.Size = new System.Drawing.Size(736, 17);
-            this.lblFileInfo.Spring = true;
-            this.lblFileInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.mainStatusStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblStatus,
+            this.pbProgress,
+            this.lblCellInfo,
+            this.lblFileInfo});
+            this.mainStatusStrip.Location = new System.Drawing.Point(0, 604);
+            this.mainStatusStrip.Name = "mainStatusStrip";
+            this.mainStatusStrip.Size = new System.Drawing.Size(894, 22);
+            this.mainStatusStrip.SizingGrip = false;
+            this.mainStatusStrip.TabIndex = 1;
+            this.mainStatusStrip.Text = "statusStrip1";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.ForeColor = System.Drawing.Color.White;
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(39, 17);
+            this.lblStatus.Text = "Ready";
+            // 
+            // pbProgress
+            // 
+            this.pbProgress.Margin = new System.Windows.Forms.Padding(10, 3, 1, 3);
+            this.pbProgress.Name = "pbProgress";
+            this.pbProgress.Size = new System.Drawing.Size(100, 16);
+            this.pbProgress.Visible = false;
             // 
             // lblCellInfo
             // 
@@ -312,13 +294,31 @@
             this.lblCellInfo.Name = "lblCellInfo";
             this.lblCellInfo.Size = new System.Drawing.Size(0, 17);
             // 
+            // lblFileInfo
+            // 
+            this.lblFileInfo.ForeColor = System.Drawing.Color.White;
+            this.lblFileInfo.Name = "lblFileInfo";
+            this.lblFileInfo.Size = new System.Drawing.Size(840, 17);
+            this.lblFileInfo.Spring = true;
+            this.lblFileInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // tcFiles
+            // 
+            this.tcFiles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcFiles.Location = new System.Drawing.Point(0, 24);
+            this.tcFiles.Name = "tcFiles";
+            this.tcFiles.SelectedIndex = 0;
+            this.tcFiles.Size = new System.Drawing.Size(894, 580);
+            this.tcFiles.TabIndex = 2;
+            this.tcFiles.SelectedIndexChanged += new System.EventHandler(this.tcFiles_SelectedIndexChanged);
+            // 
             // frmMain
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(932, 582);
+            this.ClientSize = new System.Drawing.Size(894, 626);
             this.Controls.Add(this.tcFiles);
             this.Controls.Add(this.mainStatusStrip);
             this.Controls.Add(this.mainMenu);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -21,8 +22,6 @@ namespace iShine
 
             return str;
         }
-
-
 
         public static void WriteString(this BinaryWriter writer, string str, int length)
         {
@@ -53,6 +52,7 @@ namespace iShine
             pi.SetValue(dgv, setting, null);
         }
 
+        [DebuggerStepThrough]
         public static String ReadStringUntilZero(this BinaryReader reader)
         {
             int count = 0;
