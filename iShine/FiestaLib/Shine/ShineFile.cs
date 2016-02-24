@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace iShine.FiestaLib
+namespace iShine.FiestaLib.Shine
 {
     public class ShineFile : DataSet, IFile
     {
@@ -168,19 +168,6 @@ namespace iShine.FiestaLib
                 }
                 writer.WriteLine("#End");
             }
-        }
-    }
-
-    public class ShineTable : DataTable
-    {
-        public List<string> ColumnTypes = new List<string>();
-
-        public int ColumnCount { get { return Columns.Count; } }
-        public int RowCount { get { return Rows.Count; } }
-
-        public ShineTable(string TableName)
-        {
-            this.TableName = TableName;
         }
     }
 }

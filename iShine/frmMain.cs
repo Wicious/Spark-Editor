@@ -11,6 +11,8 @@ using iShine.FiestaLib;
 using System.IO;
 using iShine.Controls;
 using iShine.Forms.Options;
+using iShine.FiestaLib.Quest;
+using iShine.FiestaLib.SHN;
 
 namespace iShine
 {

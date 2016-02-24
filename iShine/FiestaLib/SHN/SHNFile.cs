@@ -9,7 +9,7 @@ using iShine.Cryptography;
 using System.Windows.Forms;
 using System.Reflection;
 
-namespace iShine.FiestaLib
+namespace iShine.FiestaLib.SHN
 {
     public class SHNFile : DataTable, IFile
     {
@@ -351,53 +351,3 @@ namespace iShine.FiestaLib
         }
     }
 }
-
-public class SHNColumn : DataColumn
-{
-    public int Length { get; set; }
-    public SHNType SHNType { get; set; }
-
-    public SHNColumn(string name, int length, SHNType shnType, Type dataType)
-        : base(name, dataType)
-    {
-        Length = length;
-        SHNType = shnType;
-    }
-}
-
-public enum SHNType
-{
-
-    [SHNType(typeof(string), 0x09, 0x18)]
-    String,
-
-    [SHNType(typeof(byte), 0x01, 0x0C, 0x10)]
-    Byte,
-
-    [SHNType(typeof(ushort), 0x02)]
-    UShort,
-
-    [SHNType(typeof(string), 0x1A)]
-    UnknownLengthString,
-
-    [SHNType(typeof(uint), 0x03, 0x0B, 0x12, 0x1B)]
-    UInt,
-
-    [SHNType(typeof(Single), 0x05)]
-    Single,
-
-    [SHNType(typeof(short), 0x15, 0x0D)]
-    Short,
-
-    [SHNType(typeof(sbyte), 0x14)]
-    SByte,
-
-    [SHNType(typeof(int), 0x16)]
-    Int,
-
-    [SHNType(typeof(object))]
-    Default
-}
-
-
-
