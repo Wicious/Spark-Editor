@@ -13,6 +13,7 @@ using iShine.Controls;
 using iShine.Forms.Options;
 using iShine.FiestaLib.Quest;
 using iShine.FiestaLib.SHN;
+using iShine.FiestaLib.Shine;
 
 namespace iShine
 {

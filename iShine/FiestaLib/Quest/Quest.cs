@@ -30,10 +30,7 @@ namespace iShine.FiestaLib.Quest
         [Description("The quest title in text.")]
         public string TitleString { get; set; }
 
-        [ReadOnly(false)]
-        [DisplayName("\t\tDescription")]
-        [Category("General")]
-        [Description("The underlying ID for this quests description.")]
+        [Browsable(false)]
         public ushort Description { get; set; }
 
         [ReadOnly(false)]
@@ -43,13 +40,13 @@ namespace iShine.FiestaLib.Quest
         public bool HasLevelRequirement { get; set; }
 
         [ReadOnly(false)]
-        [DisplayName("\t\t\tMinimumLevel")]
+        [DisplayName("\t\t\tMinLevel")]
         [Category("Requirements")]
         [Description("What level the player needs to be at least.")]
         public byte MinLevel { get; set; }
 
         [ReadOnly(false)]
-        [DisplayName("\t\tMaximumLevel")]
+        [DisplayName("\t\tMaxLevel")]
         [Category("Requirements")]
         [Description("What level the player needs to be below.")]
         public byte MaxLevel { get; set; }
@@ -94,7 +91,7 @@ namespace iShine.FiestaLib.Quest
         public bool HasClassRequirement { get; set; }
 
         [ReadOnly(false)]
-        [DisplayName("IsLevelQuest")]
+        [DisplayName("IsLevelingQuest")]
         [Category("General")]
         [Description("Determines whether the player needs to reach a specific level to finish the quest as a quest objective.")]
         public bool IsLevelQuest { get; set; }

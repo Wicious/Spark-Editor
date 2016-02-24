@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 internal class SHNTypeAttribute : Attribute
 {
     public Type Type { get; private set; }
