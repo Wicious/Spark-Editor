@@ -1,4 +1,4 @@
-## iShine
+## Spark Editor
 ### A Fiesta Online tool for pretty much everything.
 
 
