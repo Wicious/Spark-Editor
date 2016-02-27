@@ -1,0 +1,14 @@
+C:\Users\Will\Documents\GitHub\iShine\iShine\bin\Release\iShine.exe.config
+C:\Users\Will\Documents\GitHub\iShine\iShine\bin\Release\iShine.exe
+C:\Users\Will\Documents\GitHub\iShine\iShine\bin\Release\iShine.pdb
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Release\iShine.Controls.QuestPanel.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Release\iShine.Forms.frmNewFile.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Release\iShine.Forms.Options.frmOptions.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Release\iShine.Forms.Options.pCopyPaste.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Release\iShine.Forms.Options.pEncoding.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Release\iShine.Forms.Options.pEncryption.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Release\iShine.frmMain.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Release\iShine.Properties.Resources.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Release\iShine.csproj.GenerateResource.Cache
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Release\iShine.exe
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Release\iShine.pdb

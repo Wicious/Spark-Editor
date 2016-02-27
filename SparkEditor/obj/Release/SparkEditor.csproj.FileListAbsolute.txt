@@ -1,0 +1,14 @@
+C:\Users\Will\Documents\GitHub\iShine\SparkEditor\bin\Release\SparkEditor.exe.config
+C:\Users\Will\Documents\GitHub\iShine\SparkEditor\bin\Release\SparkEditor.exe
+C:\Users\Will\Documents\GitHub\iShine\SparkEditor\bin\Release\SparkEditor.pdb
+C:\Users\Will\Documents\GitHub\iShine\SparkEditor\obj\Release\SparkEditor.Controls.QuestPanel.resources
+C:\Users\Will\Documents\GitHub\iShine\SparkEditor\obj\Release\SparkEditor.Forms.frmNewFile.resources
+C:\Users\Will\Documents\GitHub\iShine\SparkEditor\obj\Release\SparkEditor.Forms.Options.frmOptions.resources
+C:\Users\Will\Documents\GitHub\iShine\SparkEditor\obj\Release\SparkEditor.Forms.Options.pCopyPaste.resources
+C:\Users\Will\Documents\GitHub\iShine\SparkEditor\obj\Release\SparkEditor.Forms.Options.pEncoding.resources
+C:\Users\Will\Documents\GitHub\iShine\SparkEditor\obj\Release\SparkEditor.Forms.Options.pEncryption.resources
+C:\Users\Will\Documents\GitHub\iShine\SparkEditor\obj\Release\SparkEditor.frmMain.resources
+C:\Users\Will\Documents\GitHub\iShine\SparkEditor\obj\Release\SparkEditor.Properties.Resources.resources
+C:\Users\Will\Documents\GitHub\iShine\SparkEditor\obj\Release\SparkEditor.csproj.GenerateResource.Cache
+C:\Users\Will\Documents\GitHub\iShine\SparkEditor\obj\Release\SparkEditor.exe
+C:\Users\Will\Documents\GitHub\iShine\SparkEditor\obj\Release\SparkEditor.pdb

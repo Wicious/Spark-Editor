@@ -1,0 +1,14 @@
+C:\Users\Will\Documents\GitHub\iShine\iShine\bin\Debug\iShine.exe.config
+C:\Users\Will\Documents\GitHub\iShine\iShine\bin\Debug\iShine.exe
+C:\Users\Will\Documents\GitHub\iShine\iShine\bin\Debug\iShine.pdb
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Debug\iShine.Controls.QuestPanel.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Debug\iShine.Forms.frmNewFile.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Debug\iShine.Forms.Options.frmOptions.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Debug\iShine.Forms.Options.pCopyPaste.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Debug\iShine.Forms.Options.pEncoding.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Debug\iShine.Forms.Options.pEncryption.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Debug\iShine.frmMain.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Debug\iShine.Properties.Resources.resources
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Debug\iShine.csproj.GenerateResource.Cache
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Debug\iShine.exe
+C:\Users\Will\Documents\GitHub\iShine\iShine\obj\Debug\iShine.pdb
