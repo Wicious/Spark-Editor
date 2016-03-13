@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SparkEditor.FiestaLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,9 @@ namespace SparkEditor
 {
     static class Program
     {
+        // Put all files in here for access.
+        public static List<IFile> LoadedFiles = new List<IFile>();
+
         public static EncodingInfo DefaultEncodingInfo
         {
             get

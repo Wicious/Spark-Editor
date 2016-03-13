@@ -15,14 +15,12 @@ using SparkEditor.FiestaLib.Quest;
 using SparkEditor.FiestaLib.SHN;
 using SparkEditor.FiestaLib.Shine;
 using SparkEditor.Forms;
+using SparkEditor.Forms.NewFile;
 
 namespace SparkEditor
 {
     public partial class frmMain : Form
     {
-        // Put all files in here for access.
-        private List<IFile> LoadedFiles = new List<IFile>();
-
         public frmMain()
         {
             InitializeComponent();
@@ -69,16 +67,33 @@ namespace SparkEditor
                         if (Path.GetFileNameWithoutExtension(fileName).ToLower() == "questdata")
                         {
                             file = new QuestFile(fileName);
-                            LoadedFiles.Add(file);
+                            Program.LoadedFiles.Add(file);
                             Extensions.FileType = FileType.QuestFile;
 
-                            var tab = new TabPage(Path.GetFileName(file.FilePath));
+                            var mainTab = new TabPage("QuestFile");
+                            var qTab = new TabPage("Quests");
+                            var dTab = new TabPage("Dialouges");
+                            mainTab.BackColor = Color.White;
+                            dTab.BackColor = Color.White;
+                            qTab.BackColor = Color.White;
+
+                            var tc = new TabControl();
+                            tc.Dock = DockStyle.Fill;
+                            qTab.Padding = new Padding(0, 5, 0, 0);
+                            dTab.Padding = new Padding(0, 5, 0, 0);
+                            mainTab.Padding = new Padding(0, 5, 0, 0);
+
+                            tc.TabPages.Add(qTab);
+                            tc.TabPages.Add(dTab);
+
+                            mainTab.Controls.Add(tc);
+
                             var qPanel = new QuestPanel(file);
                             qPanel.Dock = DockStyle.Fill;
-                            tab.BackColor = Color.White;
-                            tab.Controls.Add(qPanel);
+                            qTab.BackColor = Color.White;
+                            qTab.Controls.Add(qPanel);
 
-                            tcFiles.TabPages.Add(tab);
+                            tcFiles.TabPages.Add(mainTab);
                             tcFiles.SelectedIndex = tcFiles.TabPages.Count - 1;
 
                             pbProgress.Visible = false;
@@ -89,8 +104,7 @@ namespace SparkEditor
                             return;
                         }
 
-                        else
-                            file = new SHNFile(fileName);
+                        file = new SHNFile(fileName);
                         Extensions.FileType = FileType.SHNFile;
 
                         break;
@@ -115,7 +129,7 @@ namespace SparkEditor
                     }))
                 )));
 
-                LoadedFiles.Add(file);
+                Program.LoadedFiles.Add(file);
 
                 if (file.GetType() == typeof(SHNFile))
                 {
@@ -186,6 +200,94 @@ namespace SparkEditor
             }
         }
 
+        private async void createFile(IFile file)
+        {
+            try
+            {
+                var dgv = new DataGridView();
+
+                if (file.GetType() == typeof(QuestFile))
+                {
+                    file = new QuestFile("");
+                    Program.LoadedFiles.Add(file);
+                    Extensions.FileType = FileType.QuestFile;
+
+                    var tab = new TabPage(Path.GetFileName(file.FilePath));
+                    var qPanel = new QuestPanel((QuestFile)file);
+                    qPanel.Dock = DockStyle.Fill;
+                    tab.BackColor = Color.White;
+                    tab.Controls.Add(qPanel);
+
+                    tcFiles.TabPages.Add(tab);
+                    tcFiles.SelectedIndex = tcFiles.TabPages.Count - 1;
+                }
+
+                else if (file.GetType() == typeof(SHNFile))
+                {
+                    dgv = new DataGridView();
+                    dgv.Dock = DockStyle.Fill;
+                    dgv.BackgroundColor = Color.WhiteSmoke;
+                    dgv.DoubleBuffered(true);
+                    dgv.DataSource = file;
+
+                    ((SHNFile)file).CreateFile();
+
+                    dgv.CellEnter += File_CellEnter;
+
+                    var tab = new TabPage(((DataTable)file).TableName);
+                    ((DataTable)file).RowChanged += new DataRowChangeEventHandler(File_RowChanged);
+                    tab.Controls.Add(dgv);
+
+                    tcFiles.TabPages.Add(tab);
+                    tcFiles.SelectedIndex = tcFiles.TabPages.Count - 1;
+                }
+
+                else if (file.GetType() == typeof(ShineFile))
+                {
+                    var mainTab = new TabPage(((ShineFile)file).DataSetName);
+                    var tcTables = new TabControl();
+                    tcTables.Dock = DockStyle.Fill;
+
+                    tcTables.SelectedIndexChanged += new EventHandler((object s, EventArgs e) =>
+                    {
+                        ((ShineFile)file).SelectedIndex = tcTables.SelectedIndex;
+                    });
+
+                    mainTab.Controls.Add(tcTables);
+                    tcFiles.TabPages.Add(mainTab);
+                    mainTab.BackColor = Color.White;
+
+                    tcFiles.SelectedIndex = tcFiles.TabCount - 1;
+
+                    foreach (var table in ((ShineFile)file).Tables)
+                    {
+                        dgv = new DataGridView();
+                        dgv.Dock = DockStyle.Fill;
+                        dgv.BackgroundColor = Color.WhiteSmoke;
+                        dgv.DoubleBuffered(true);
+                        dgv.DataSource = table;
+
+                        dgv.CellEnter += File_CellEnter;
+
+                        var tab = new TabPage(((DataTable)table).TableName);
+                        ((DataTable)table).RowChanged += new DataRowChangeEventHandler(File_RowChanged);
+                        tab.Controls.Add(dgv);
+
+                        tcTables.TabPages.Add(tab);
+                    }
+                }
+
+                updateFileInfo();
+            }
+            catch (Exception ex)
+            {
+                pbProgress.Visible = false;
+                pbProgress.Value = 0;
+                lblStatus.Text = "Ready";
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void File_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -200,7 +302,7 @@ namespace SparkEditor
         {
             try
             {
-                LoadedFiles[tcFiles.SelectedIndex].IsSaved = false;
+                Program.LoadedFiles[tcFiles.SelectedIndex].IsSaved = false;
                 updateFileInfo();
             }
             catch (Exception ex)
@@ -214,7 +316,7 @@ namespace SparkEditor
                 // Display the hidden progressbar in the statusbar.
                 pbProgress.Visible = true;
 
-                var file = LoadedFiles[tcFiles.SelectedIndex];
+                var file = Program.LoadedFiles[tcFiles.SelectedIndex];
 
                 lblStatus.Text = "Saving " + Path.GetFileName(file.FilePath);
 
@@ -226,7 +328,7 @@ namespace SparkEditor
                     }))
                 )));
 
-                LoadedFiles[tcFiles.SelectedIndex].IsSaved = true;
+                Program.LoadedFiles[tcFiles.SelectedIndex].IsSaved = true;
 
                 // Hide and reset the progressbar.
                 pbProgress.Visible = false;
@@ -245,10 +347,10 @@ namespace SparkEditor
         {
             try
             {
-                if (LoadedFiles.Count == 0)
+                if (Program.LoadedFiles.Count == 0)
                     throw new Exception("No files are opened.");
 
-                saveFile(LoadedFiles[tcFiles.SelectedIndex].FilePath);
+                saveFile(Program.LoadedFiles[tcFiles.SelectedIndex].FilePath);
             }
             catch (Exception ex)
             {
@@ -260,12 +362,12 @@ namespace SparkEditor
         {
             try
             {
-                if (LoadedFiles.Count == 0)
+                if (Program.LoadedFiles.Count == 0)
                     throw new Exception("No files are opened.");
 
                 using (var frm = new SaveFileDialog())
                 {
-                    var file = LoadedFiles[tcFiles.SelectedIndex];
+                    var file = Program.LoadedFiles[tcFiles.SelectedIndex];
                     frm.InitialDirectory = file.FilePath;
 
                     if (file.GetType() == typeof(SHNFile))
@@ -322,10 +424,10 @@ namespace SparkEditor
         {
             try
             {
-                if (LoadedFiles.Count == 0)
+                if (Program.LoadedFiles.Count == 0)
                     throw new Exception("No files are opened.");
 
-                LoadedFiles.RemoveAt(tcFiles.SelectedIndex);
+                Program.LoadedFiles.RemoveAt(tcFiles.SelectedIndex);
                 tcFiles.TabPages.RemoveAt(tcFiles.SelectedIndex);
             }
             catch (Exception ex)
@@ -343,14 +445,14 @@ namespace SparkEditor
         {
             try
             {
-                if (LoadedFiles.Count == 0)
+                if (Program.LoadedFiles.Count == 0)
                 {
                     lblFileInfo.Text = "";
                     lblCellInfo.Text = "";
                     return;
                 }
 
-                dynamic file = LoadedFiles[tcFiles.SelectedIndex];
+                dynamic file = Program.LoadedFiles[tcFiles.SelectedIndex];
 
                 if (file.GetType() == typeof(SHNFile))
                     file = (SHNFile)file;
@@ -398,7 +500,7 @@ namespace SparkEditor
 
         private async void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            foreach (var file in LoadedFiles)
+            foreach (var file in Program.LoadedFiles)
             {
                 if (!file.IsSaved)
                 {
@@ -440,8 +542,24 @@ namespace SparkEditor
         {
             using (var frm = new frmNewFile())
             {
-                frm.ShowDialog(this);
+                if (frm.ShowDialog(this) == DialogResult.OK)
+                {
+                    createFile(Program.LoadedFiles.Last());
+                }
             }
+        }
+
+        private void btnMassEditor_Click(object sender, EventArgs e)
+        {
+            if (Program.LoadedFiles.Count == 0) return;
+
+            var frm = new frmMassEditor(Program.LoadedFiles[tcFiles.SelectedIndex]);
+            frm.Show(this);
+            frm.FormClosed += ((ew, args) =>
+            {
+                if (Program.LoadedFiles[tcFiles.SelectedIndex].GetType() == typeof(SHNFile))
+                    ((SHNFile)Program.LoadedFiles[tcFiles.SelectedIndex]).DefaultView.RowFilter = "";
+            });
         }
     }
 }

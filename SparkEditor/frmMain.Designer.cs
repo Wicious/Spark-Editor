@@ -56,7 +56,7 @@
             this.sQLOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.massEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMassEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.translatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fastTasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnOptions = new System.Windows.Forms.ToolStripMenuItem();
@@ -114,7 +114,8 @@
             this.btnNewFile.BackColor = System.Drawing.SystemColors.Control;
             this.btnNewFile.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnNewFile.Name = "btnNewFile";
-            this.btnNewFile.Size = new System.Drawing.Size(171, 22);
+            this.btnNewFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.btnNewFile.Size = new System.Drawing.Size(170, 22);
             this.btnNewFile.Text = "New..";
             this.btnNewFile.Click += new System.EventHandler(this.btnNewFile_Click);
             // 
@@ -125,7 +126,7 @@
             this.btnOpenFile.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnOpenFile.Name = "btnOpenFile";
             this.btnOpenFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.btnOpenFile.Size = new System.Drawing.Size(171, 22);
+            this.btnOpenFile.Size = new System.Drawing.Size(170, 22);
             this.btnOpenFile.Text = "Open..";
             this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
             // 
@@ -137,7 +138,7 @@
             this.btnSave});
             this.menuItemSave.ForeColor = System.Drawing.SystemColors.ControlText;
             this.menuItemSave.Name = "menuItemSave";
-            this.menuItemSave.Size = new System.Drawing.Size(171, 22);
+            this.menuItemSave.Size = new System.Drawing.Size(170, 22);
             this.menuItemSave.Text = "Save";
             // 
             // btnSaveAs
@@ -165,7 +166,7 @@
             // 
             this.toolStripMenuItem1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(168, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(167, 6);
             // 
             // btnCloseTab
             // 
@@ -173,7 +174,7 @@
             this.btnCloseTab.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnCloseTab.Name = "btnCloseTab";
             this.btnCloseTab.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.btnCloseTab.Size = new System.Drawing.Size(171, 22);
+            this.btnCloseTab.Size = new System.Drawing.Size(170, 22);
             this.btnCloseTab.Text = "Close Tab";
             this.btnCloseTab.Click += new System.EventHandler(this.btnCloseTab_Click);
             // 
@@ -182,7 +183,7 @@
             this.btnExit.BackColor = System.Drawing.SystemColors.Control;
             this.btnExit.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(171, 22);
+            this.btnExit.Size = new System.Drawing.Size(170, 22);
             this.btnExit.Text = "Exit";
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -318,23 +319,24 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.massEditorToolStripMenuItem,
+            this.btnMassEditor,
             this.translatorToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
-            // massEditorToolStripMenuItem
+            // btnMassEditor
             // 
-            this.massEditorToolStripMenuItem.Name = "massEditorToolStripMenuItem";
-            this.massEditorToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.massEditorToolStripMenuItem.Text = "Mass Editor";
+            this.btnMassEditor.Name = "btnMassEditor";
+            this.btnMassEditor.Size = new System.Drawing.Size(152, 22);
+            this.btnMassEditor.Text = "Mass Editor..";
+            this.btnMassEditor.Click += new System.EventHandler(this.btnMassEditor_Click);
             // 
             // translatorToolStripMenuItem
             // 
             this.translatorToolStripMenuItem.Name = "translatorToolStripMenuItem";
-            this.translatorToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.translatorToolStripMenuItem.Text = "Translator";
+            this.translatorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.translatorToolStripMenuItem.Text = "Translator..";
             // 
             // fastTasksToolStripMenuItem
             // 
@@ -350,7 +352,7 @@
             // btnOptions
             // 
             this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(133, 22);
+            this.btnOptions.Size = new System.Drawing.Size(152, 22);
             this.btnOptions.Text = "Options..";
             this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
             // 
@@ -358,7 +360,7 @@
             // 
             this.fastTasksToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fastTasksToolStripMenuItem1.Name = "fastTasksToolStripMenuItem1";
-            this.fastTasksToolStripMenuItem1.Size = new System.Drawing.Size(133, 22);
+            this.fastTasksToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.fastTasksToolStripMenuItem1.Text = "Fast Tasks..";
             // 
             // extrasToolStripMenuItem
@@ -366,13 +368,13 @@
             this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.assertHelperToolStripMenuItem});
             this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
-            this.extrasToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.extrasToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.extrasToolStripMenuItem.Text = "Extras";
             // 
             // assertHelperToolStripMenuItem
             // 
             this.assertHelperToolStripMenuItem.Name = "assertHelperToolStripMenuItem";
-            this.assertHelperToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.assertHelperToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.assertHelperToolStripMenuItem.Text = "Assert Helper..";
             // 
             // contactToolStripMenuItem
@@ -520,7 +522,7 @@
         private System.Windows.Forms.ToolStripMenuItem creditsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem btnOptions;
-        private System.Windows.Forms.ToolStripMenuItem massEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnMassEditor;
         private System.Windows.Forms.ToolStripMenuItem translatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sQLOutputToolStripMenuItem;

@@ -46,6 +46,16 @@ namespace SparkEditor
             }
         }
 
+        public static void PlaceHolder(this TextBox txtBox, string placeholder)
+        {
+            txtBox.Tag = placeholder;
+        }
+
+        public static string PlaceHolder(this TextBox txtBox)
+        {
+            return txtBox.Tag.ToString();
+        }
+
         public static void DoubleBuffered(this DataGridView dgv, bool setting)
         {
             Type dgvType = dgv.GetType();

@@ -46,6 +46,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -88,11 +89,29 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FiestaLib\SHN\SHNType.cs" />
-    <Compile Include="Forms\frmNewFile.cs">
+    <Compile Include="Forms\frmMassEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmNewFile.Designer.cs">
+    <Compile Include="Forms\frmMassEditor.Designer.cs">
+      <DependentUpon>frmMassEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewFile\frmNewColumn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewFile\frmNewColumn.Designer.cs">
+      <DependentUpon>frmNewColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewFile\frmNewFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewFile\frmNewFile.Designer.cs">
       <DependentUpon>frmNewFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewFile\frmTableEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewFile\frmTableEditor.Designer.cs">
+      <DependentUpon>frmTableEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Options\frmOptions.cs">
       <SubType>Form</SubType>
@@ -130,8 +149,17 @@
     <EmbeddedResource Include="Controls\QuestPanel.resx">
       <DependentUpon>QuestPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmNewFile.resx">
+    <EmbeddedResource Include="Forms\frmMassEditor.resx">
+      <DependentUpon>frmMassEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewFile\frmNewColumn.resx">
+      <DependentUpon>frmNewColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewFile\frmNewFile.resx">
       <DependentUpon>frmNewFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewFile\frmTableEditor.resx">
+      <DependentUpon>frmTableEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Options\frmOptions.resx">
       <DependentUpon>frmOptions.cs</DependentUpon>

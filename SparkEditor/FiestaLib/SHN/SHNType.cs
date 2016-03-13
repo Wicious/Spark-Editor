@@ -16,27 +16,27 @@ namespace SparkEditor.FiestaLib.SHN
         Byte,
 
         [SHNType(typeof(ushort), 0x02)]
-        UShort,
+        UInt16,
 
         [SHNType(typeof(string), 0x1A)]
         UnknownLengthString,
 
         [SHNType(typeof(uint), 0x03, 0x0B, 0x12, 0x1B)]
-        UInt,
+        UInt32,
 
         [SHNType(typeof(Single), 0x05)]
         Single,
 
         [SHNType(typeof(short), 0x15, 0x0D)]
-        Short,
+        Int16,
 
         [SHNType(typeof(sbyte), 0x14)]
         SByte,
 
         [SHNType(typeof(int), 0x16)]
-        Int,
+        Int32,
 
         [SHNType(typeof(object))]
-        Default
+        Object
     }
 }

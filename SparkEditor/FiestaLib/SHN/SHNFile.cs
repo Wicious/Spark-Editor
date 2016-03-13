@@ -37,6 +37,21 @@ namespace SparkEditor.FiestaLib.SHN
             }
         }
 
+        public void CreateFile()
+        {
+            BaseHeader = new byte[32];
+            SetCryptHeader("3B 02 00 00 32 30 30 35 2D 30 38 2D 32 36 20 BF C0 C8 C4 20 32 3A 33 00 6A 7F 00 00 01 00 00 00");
+            DataHeader = 0;
+        }
+
+        public void SetCryptHeader(string hexString)
+        {
+            string[] tempArray = hexString.Split(' ');
+            if (tempArray.Length != 32) throw new Exception("Incorrect header length!");
+            for (int i = 0; i < tempArray.Length; i++)
+                BaseHeader[i] = byte.Parse(tempArray[i], System.Globalization.NumberStyles.HexNumber);
+        }
+
         public SHNFile(string filePath)
         {
             FilePath = filePath;
@@ -119,7 +134,7 @@ namespace SparkEditor.FiestaLib.SHN
 
             }
 
-            return SHNType.Default;
+            return SHNType.Object;
         }
 
         private void readRows(IProgress<int> progress)
@@ -251,7 +266,7 @@ namespace SparkEditor.FiestaLib.SHN
                             writer.Write((byte)value);
                             break;
 
-                        case SHNType.Int:
+                        case SHNType.Int32:
                             if (value is string)
                                 value = int.Parse((string)value);
 
@@ -265,7 +280,7 @@ namespace SparkEditor.FiestaLib.SHN
                             writer.Write((sbyte)value);
                             break;
 
-                        case SHNType.Short:
+                        case SHNType.Int16:
                             if (value is string)
                                 value = short.Parse((string)value);
 
@@ -279,7 +294,7 @@ namespace SparkEditor.FiestaLib.SHN
                             writer.Write((Single)value);
                             break;
 
-                        case SHNType.UInt:
+                        case SHNType.UInt32:
                             if (value is string)
                                 value = uint.Parse((string)value);
 
@@ -290,14 +305,14 @@ namespace SparkEditor.FiestaLib.SHN
                             writer.WriteString(value.ToString(), -1);
                             break;
 
-                        case SHNType.UShort:
+                        case SHNType.UInt16:
                             if (value is string)
                                 value = ushort.Parse((string)value);
 
                             writer.Write((ushort)value);
                             break;
 
-                        case SHNType.Default:
+                        case SHNType.Object:
                             break;
                     }
                 }

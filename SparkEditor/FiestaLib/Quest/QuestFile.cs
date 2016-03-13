@@ -50,11 +50,16 @@ namespace SparkEditor.FiestaLib.Quest
 
             QuestDialog = new SHNFile(Path.Combine(Path.GetDirectoryName(filePath), "QuestDialog.shn"));
             MobInfo = new SHNFile(Path.Combine(Path.GetDirectoryName(filePath), "MobInfo.shn"));
+
+            if (!File.Exists(QuestDialog.FilePath))
+                throw new Exception("QuestDialog.shn cannot be found. Make sure it is in the same directory.");
+
             Init();
         }
 
         private async void Init()
         {
+            
             await QuestDialog.Load(new Progress<int>());
             await MobInfo.Load(new Progress<int>());
 
