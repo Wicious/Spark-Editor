@@ -70,7 +70,7 @@ namespace SparkEditor.FiestaLib.Quest
         [DisplayName("StartingNPC")]
         [Category("General")]
         [Description("The underlying ID of the NPC who gives you the quest.")]
-        public ushort QuestGiverID { get { return QuestNPC.ID; } set { QuestNPC.ID = value; } }
+        public ushort QuestGiverID { get { if (QuestNPC == null) return 0; else return QuestNPC.ID; } set { QuestNPC.ID = value; } }
 
         [Browsable(false)]
         public Mob RewardingNPC { get; set; }
@@ -85,7 +85,7 @@ namespace SparkEditor.FiestaLib.Quest
         [DisplayName("RewardingNPC")]
         [Category("General")]
         [Description("The NPC that you turn the quest in to for a reward.")]
-        public ushort RewardingNPCID { get { return RewardingNPC.ID; } set { RewardingNPC.ID = value; } }
+        public ushort RewardingNPCID { get { if (RewardingNPC == null) return 0; else return RewardingNPC.ID; } set { RewardingNPC.ID = value; } }
 
         [Browsable(false)]
         public bool HasClassRequirement { get; set; }

@@ -31,6 +31,8 @@ namespace SparkEditor.FiestaLib.Quest
         private BinaryReader reader { get; set; }
         private BinaryReader writer { get; set; }
 
+        private bool isNewFile = false;
+
         public short Header;
         public short QuestCount
         {
@@ -43,31 +45,47 @@ namespace SparkEditor.FiestaLib.Quest
         public string FilePath { get; set; }
         public bool IsSaved { get; set; }
 
-        public QuestFile(string filePath)
+        public QuestFile(string filePath, bool newFile = false, string mobInfo = "", string itemInfo = "")
         {
             FilePath = filePath;
             IsSaved = true;
+            isNewFile = newFile;
 
-            QuestDialog = new SHNFile(Path.Combine(Path.GetDirectoryName(filePath), "QuestDialog.shn"));
-            MobInfo = new SHNFile(Path.Combine(Path.GetDirectoryName(filePath), "MobInfo.shn"));
+            if (!newFile)
+            {
+                QuestDialog = new SHNFile(Path.Combine(Path.GetDirectoryName(filePath), "QuestDialog.shn"));
+                MobInfo = new SHNFile(Path.Combine(Path.GetDirectoryName(filePath), "MobInfo.shn"));
 
-            if (!File.Exists(QuestDialog.FilePath))
-                throw new Exception("QuestDialog.shn cannot be found. Make sure it is in the same directory.");
+                if (!File.Exists(QuestDialog.FilePath))
+                    throw new Exception("QuestDialog.shn cannot be found. Make sure it is in the same directory.");
+            }
+            else
+            {
+                MobInfo = new SHNFile(mobInfo);
+
+                QuestDialog = new SHNFile("QuestDialog.shn");
+                QuestDialog.CreateFile();
+                QuestDialog.Columns.Add(new SHNColumn("ID", -1, SHNType.UInt32, typeof(uint)));
+                QuestDialog.Columns.Add(new SHNColumn("Dialog", 50, SHNType.UInt32, typeof(uint)));
+            }
 
             Init();
         }
 
         private async void Init()
         {
-            
-            await QuestDialog.Load(new Progress<int>());
             await MobInfo.Load(new Progress<int>());
 
-            foreach (DataRow row in QuestDialog.Rows)
+            if (!isNewFile)
             {
-                if (QuestStrings.ContainsKey(Convert.ToUInt16(row.ItemArray[0]))) continue;
+                await QuestDialog.Load(new Progress<int>());
 
-                QuestStrings.Add(Convert.ToUInt16(row.ItemArray[0]), row.ItemArray[1].ToString());
+                foreach (DataRow row in QuestDialog.Rows)
+                {
+                    if (QuestStrings.ContainsKey(Convert.ToUInt16(row.ItemArray[0]))) continue;
+
+                    QuestStrings.Add(Convert.ToUInt16(row.ItemArray[0]), row.ItemArray[1].ToString());
+                }
             }
 
             foreach (DataRow row in MobInfo.Rows)
@@ -75,16 +93,19 @@ namespace SparkEditor.FiestaLib.Quest
                 if (MobRows.ContainsKey(Convert.ToUInt16(row.ItemArray[0]))) continue;
                 MobRows.Add(Convert.ToUInt16(row.ItemArray[0]), row.ItemArray);
             }
-
         }
 
         public async Task Load(IProgress<int> progress)
         {
             int percent = 0;
+            if (isNewFile)
+            {
+                return;
+            }
+
             using (reader = new BinaryReader(File.OpenRead(FilePath)))
             {
                 Header = reader.ReadInt16();
-                QuestFileVersion = (Header == 4 ? QuestFileVersion.NA11 : QuestFileVersion.CN12);
 
                 var questCount = reader.ReadInt16();
 

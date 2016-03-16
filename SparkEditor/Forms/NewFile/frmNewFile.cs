@@ -27,7 +27,27 @@ namespace SparkEditor.Forms.NewFile
         private void btnOK_Click(object sender, EventArgs e)
         {
             file = file ?? new SHNFile(txtFileName.Text + ".shn");
+            file.FilePath = txtFileName.Text + (file.GetType() == typeof(ShineFile) ? ".txt" : ".shn");
             file.IsSaved = false;
+
+            if (cbFileType.SelectedIndex == 2)
+            {
+                using (var frm = new frmQuestDependencies())
+                {
+                    if (frm.ShowDialog(this) == DialogResult.OK)
+                    {
+                        file = new QuestFile(txtFileName.Text + ".shn", true, frm.MobInfoPath, frm.ItemInfoPath);
+                    }
+                }
+
+                using (var frm = new frmChooseQuestVersion((QuestFile)file))
+                {
+                    if (frm.ShowDialog(this) != DialogResult.OK)
+                    {
+                        ((QuestFile)file).QuestFileVersion = QuestFileVersion.NA11;
+                    }
+                }
+            }
 
             if (file.GetType() == typeof(SHNFile))
                 ((SHNFile)file).CreateFile();
@@ -50,6 +70,7 @@ namespace SparkEditor.Forms.NewFile
                     else if (file.GetType() == typeof(ShineFile))
                     {
                         ((DataSet)file).Tables[cbTables.SelectedIndex].Columns.Add(new DataColumn(frm.ColumnName, frm.ColumnType));
+                        ((ShineTable)((ShineFile)file).Tables[cbTables.SelectedIndex]).ColumnTypes.Add(frm.ColumnType.Name + (frm.ColumnType == typeof(string) ? "[" + frm.ColumnLength + "]" : ""));
                     }
                 }
             }
@@ -60,7 +81,6 @@ namespace SparkEditor.Forms.NewFile
             lvColumns.Items.Clear();
             try
             {
-
                 switch (cbFileType.SelectedIndex)
                 {
                     // SHN File
@@ -70,6 +90,7 @@ namespace SparkEditor.Forms.NewFile
                         gbColumns.Enabled = true;
                         cbTables.Enabled = false;
                         linkTableEditor.Enabled = false;
+                        lblFileType.Text = ".shn";
                         break;
 
                     // Shine File
@@ -78,15 +99,17 @@ namespace SparkEditor.Forms.NewFile
                         gbColumns.Enabled = true;
                         cbTables.Enabled = true;
                         linkTableEditor.Enabled = true;
+                        lblFileType.Text = ".txt";
 
-                        ((ShineFile)file).Tables.Add("DefaultTable");
+                        ((ShineFile)file).Tables.Add(new ShineTable("Table1"));
                         cbTables.DataSource = ((ShineFile)file).Tables.Cast<DataTable>().AsEnumerable().ToList();
                         cbTables.DisplayMember = "TableName";
                         break;
 
                     // Quest File
                     case 2:
-                        file = new QuestFile(txtFileName.Text + ".shn");
+                        txtFileName.Text = "QuestData";
+                        lblFileType.Text = ".shn";
                         gbColumns.Enabled = false;
                         break;
                 }

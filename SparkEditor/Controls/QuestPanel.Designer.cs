@@ -64,6 +64,9 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnQuestSearch = new System.Windows.Forms.Button();
             this.txtQuestSearch = new System.Windows.Forms.TextBox();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.btnCreateQuest = new System.Windows.Forms.Button();
+            this.btnDeleteQuest = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tcQuest.SuspendLayout();
             this.tpGeneral.SuspendLayout();
@@ -78,6 +81,7 @@
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -89,13 +93,15 @@
             this.tableLayoutPanel1.Controls.Add(this.lbQuests, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.tcQuest, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel4, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel6, 1, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(836, 548);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -107,7 +113,7 @@
             this.lbQuests.FormattingEnabled = true;
             this.lbQuests.Location = new System.Drawing.Point(623, 30);
             this.lbQuests.Name = "lbQuests";
-            this.lbQuests.Size = new System.Drawing.Size(210, 511);
+            this.lbQuests.Size = new System.Drawing.Size(210, 485);
             this.lbQuests.TabIndex = 5;
             // 
             // tcQuest
@@ -119,7 +125,7 @@
             this.tcQuest.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcQuest.Location = new System.Drawing.Point(3, 3);
             this.tcQuest.Name = "tcQuest";
-            this.tableLayoutPanel1.SetRowSpan(this.tcQuest, 2);
+            this.tableLayoutPanel1.SetRowSpan(this.tcQuest, 3);
             this.tcQuest.SelectedIndex = 0;
             this.tcQuest.Size = new System.Drawing.Size(614, 542);
             this.tcQuest.TabIndex = 3;
@@ -513,6 +519,38 @@
             this.txtQuestSearch.Size = new System.Drawing.Size(149, 20);
             this.txtQuestSearch.TabIndex = 0;
             // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.btnCreateQuest);
+            this.panel6.Controls.Add(this.btnDeleteQuest);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(620, 519);
+            this.panel6.Margin = new System.Windows.Forms.Padding(0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(216, 29);
+            this.panel6.TabIndex = 7;
+            // 
+            // btnCreateQuest
+            // 
+            this.btnCreateQuest.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCreateQuest.Location = new System.Drawing.Point(0, 0);
+            this.btnCreateQuest.Name = "btnCreateQuest";
+            this.btnCreateQuest.Size = new System.Drawing.Size(108, 29);
+            this.btnCreateQuest.TabIndex = 0;
+            this.btnCreateQuest.Text = "Create..";
+            this.btnCreateQuest.UseVisualStyleBackColor = true;
+            this.btnCreateQuest.Click += new System.EventHandler(this.btnCreateQuest_Click);
+            // 
+            // btnDeleteQuest
+            // 
+            this.btnDeleteQuest.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnDeleteQuest.Location = new System.Drawing.Point(108, 0);
+            this.btnDeleteQuest.Name = "btnDeleteQuest";
+            this.btnDeleteQuest.Size = new System.Drawing.Size(108, 29);
+            this.btnDeleteQuest.TabIndex = 0;
+            this.btnDeleteQuest.Text = "Delete..";
+            this.btnDeleteQuest.UseVisualStyleBackColor = true;
+            // 
             // QuestPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -539,6 +577,7 @@
             this.panel3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.panel6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -546,21 +585,31 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.ListBox lbQuests;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.TextBox txtQuestSearch;
+        private System.Windows.Forms.Button btnQuestSearch;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Button btnCreateQuest;
+        private System.Windows.Forms.Button btnDeleteQuest;
         private System.Windows.Forms.TabControl tcQuest;
         private System.Windows.Forms.TabPage tpGeneral;
-        private System.Windows.Forms.TextBox txtDescription;
-        private System.Windows.Forms.TabPage tpScript;
-        private System.Windows.Forms.TabPage tpObjectives;
-        private System.Windows.Forms.TabPage tpRewards;
-        private System.Windows.Forms.Label lblQuestName;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label lblMob00;
         private System.Windows.Forms.Label lblMob01;
         private System.Windows.Forms.Label lblMob02;
         private System.Windows.Forms.Label lblMob03;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblQuestName;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.PropertyGrid pgQuestProperties;
+        private System.Windows.Forms.NumericUpDown nudDescription;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtDescription;
+        private System.Windows.Forms.TabPage tpScript;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
@@ -572,14 +621,7 @@
         private System.Windows.Forms.RichTextBox txtScriptInProgress;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.RichTextBox txtScriptFinish;
-        private System.Windows.Forms.NumericUpDown nudDescription;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox lbQuests;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.TextBox txtQuestSearch;
-        private System.Windows.Forms.Button btnQuestSearch;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.PropertyGrid pgQuestProperties;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.TabPage tpObjectives;
+        private System.Windows.Forms.TabPage tpRewards;
     }
 }

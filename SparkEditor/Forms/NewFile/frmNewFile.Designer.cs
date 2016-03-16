@@ -40,14 +40,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblFileType = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.pBottom = new System.Windows.Forms.Panel();
             this.gbColumns = new System.Windows.Forms.GroupBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.cbTables = new System.Windows.Forms.ComboBox();
-            this.linkTableEditor = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
+            this.linkTableEditor = new System.Windows.Forms.LinkLabel();
+            this.cbTables = new System.Windows.Forms.ComboBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.pBottom.SuspendLayout();
             this.gbColumns.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -181,17 +181,17 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // lblFileType
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.label2.Location = new System.Drawing.Point(270, 37);
-            this.label2.Margin = new System.Windows.Forms.Padding(0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(27, 13);
-            this.label2.TabIndex = 12;
-            this.label2.Text = ".shn";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFileType.AutoSize = true;
+            this.lblFileType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.lblFileType.Location = new System.Drawing.Point(270, 37);
+            this.lblFileType.Margin = new System.Windows.Forms.Padding(0);
+            this.lblFileType.Name = "lblFileType";
+            this.lblFileType.Size = new System.Drawing.Size(27, 13);
+            this.lblFileType.TabIndex = 12;
+            this.lblFileType.Text = ".shn";
+            this.lblFileType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
@@ -230,27 +230,17 @@
             this.gbColumns.TabStop = false;
             this.gbColumns.Text = "Columns";
             // 
-            // panel1
+            // label5
             // 
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.linkAddColumn);
-            this.panel1.Controls.Add(this.lvColumns);
-            this.panel1.Controls.Add(this.linkRemoveColumn);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 49);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(294, 109);
-            this.panel1.TabIndex = 0;
-            // 
-            // cbTables
-            // 
-            this.cbTables.Enabled = false;
-            this.cbTables.FormattingEnabled = true;
-            this.cbTables.Location = new System.Drawing.Point(43, 20);
-            this.cbTables.Name = "cbTables";
-            this.cbTables.Size = new System.Drawing.Size(133, 21);
-            this.cbTables.TabIndex = 1;
-            this.cbTables.SelectedIndexChanged += new System.EventHandler(this.cbTables_SelectedIndexChanged);
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.label5.Location = new System.Drawing.Point(3, 23);
+            this.label5.Margin = new System.Windows.Forms.Padding(0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(37, 13);
+            this.label5.TabIndex = 16;
+            this.label5.Text = "Table:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // linkTableEditor
             // 
@@ -267,17 +257,27 @@
             this.linkTableEditor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.linkTableEditor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkTableEditor_LinkClicked);
             // 
-            // label5
+            // cbTables
             // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.label5.Location = new System.Drawing.Point(3, 23);
-            this.label5.Margin = new System.Windows.Forms.Padding(0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 13);
-            this.label5.TabIndex = 16;
-            this.label5.Text = "Table:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbTables.Enabled = false;
+            this.cbTables.FormattingEnabled = true;
+            this.cbTables.Location = new System.Drawing.Point(43, 20);
+            this.cbTables.Name = "cbTables";
+            this.cbTables.Size = new System.Drawing.Size(133, 21);
+            this.cbTables.TabIndex = 1;
+            this.cbTables.SelectedIndexChanged += new System.EventHandler(this.cbTables_SelectedIndexChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.linkAddColumn);
+            this.panel1.Controls.Add(this.lvColumns);
+            this.panel1.Controls.Add(this.linkRemoveColumn);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(3, 49);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(294, 109);
+            this.panel1.TabIndex = 0;
             // 
             // frmNewFile
             // 
@@ -290,7 +290,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cbFileType);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblFileType);
             this.Controls.Add(this.pBottom);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
@@ -324,7 +324,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblFileType;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel pBottom;
         private System.Windows.Forms.GroupBox gbColumns;

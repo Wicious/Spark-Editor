@@ -13,25 +13,17 @@ namespace SparkEditor.FiestaLib.Shine
     {
         private List<string> lines = new List<string>();
 
-        public string FilePath { get; private set; }
+        private string filePath { get; set; }
+        public string FilePath { get { return filePath; } set { filePath = value; DataSetName = Path.GetFileName(value); } }
         public bool IsSaved { get; set; }
         public int SelectedIndex { get; set; }
 
         private StreamReader reader { get; set; }
         private StreamWriter writer { get; set; }
 
-        string IFile.FilePath
-        {
-            get
-            {
-                return FilePath;
-            }
-        }
-
         public ShineFile(string filePath)
         {
             FilePath = filePath;
-            DataSetName = Path.GetFileName(FilePath);
             IsSaved = true;
         }
 

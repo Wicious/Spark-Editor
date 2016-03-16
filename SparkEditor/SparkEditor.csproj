@@ -95,6 +95,24 @@
     <Compile Include="Forms\frmMassEditor.Designer.cs">
       <DependentUpon>frmMassEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmNewQuest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmNewQuest.Designer.cs">
+      <DependentUpon>frmNewQuest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmQuestMassEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmQuestMassEditor.Designer.cs">
+      <DependentUpon>frmQuestMassEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewFile\frmChooseQuestVersion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewFile\frmChooseQuestVersion.Designer.cs">
+      <DependentUpon>frmChooseQuestVersion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NewFile\frmNewColumn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +124,12 @@
     </Compile>
     <Compile Include="Forms\NewFile\frmNewFile.Designer.cs">
       <DependentUpon>frmNewFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewFile\frmQuestDependencies.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewFile\frmQuestDependencies.Designer.cs">
+      <DependentUpon>frmQuestDependencies.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\NewFile\frmTableEditor.cs">
       <SubType>Form</SubType>
@@ -152,11 +176,23 @@
     <EmbeddedResource Include="Forms\frmMassEditor.resx">
       <DependentUpon>frmMassEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmNewQuest.resx">
+      <DependentUpon>frmNewQuest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmQuestMassEditor.resx">
+      <DependentUpon>frmQuestMassEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewFile\frmChooseQuestVersion.resx">
+      <DependentUpon>frmChooseQuestVersion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewFile\frmNewColumn.resx">
       <DependentUpon>frmNewColumn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewFile\frmNewFile.resx">
       <DependentUpon>frmNewFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewFile\frmQuestDependencies.resx">
+      <DependentUpon>frmQuestDependencies.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewFile\frmTableEditor.resx">
       <DependentUpon>frmTableEditor.cs</DependentUpon>

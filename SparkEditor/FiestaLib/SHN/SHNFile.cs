@@ -18,7 +18,8 @@ namespace SparkEditor.FiestaLib.SHN
 
         public int ColumnCount { get { return Columns.Count; } }
         public int RowCount { get { return Rows.Count; } }
-        public string FilePath { get; private set; }
+        private string filePath { get; set; }
+        public string FilePath { get { return filePath; } set { filePath = value; TableName = Path.GetFileName(value); } }
         public bool IsSaved { get; set; }
         public Encryption Encryption { get; set; }
 
@@ -28,14 +29,6 @@ namespace SparkEditor.FiestaLib.SHN
         private uint recordCount { get; set; }
         private uint columnCount { get; set; }
         private uint defaultRecordLength { get; set; }
-
-        string IFile.FilePath
-        {
-            get
-            {
-                return FilePath;
-            }
-        }
 
         public void CreateFile()
         {
@@ -55,7 +48,6 @@ namespace SparkEditor.FiestaLib.SHN
         public SHNFile(string filePath)
         {
             FilePath = filePath;
-            TableName = Path.GetFileName(FilePath);
         }
 
         /// <summary>
@@ -77,7 +69,7 @@ namespace SparkEditor.FiestaLib.SHN
                 // Decrypt data
                 Crypter.Crypt(fileData, 0, fileData.Length);
 
-                // Re-initalize the reader with the unciphered data.
+                // Re-initalize the reader with the deciphered data.
                 reader = new BinaryReader(new MemoryStream(fileData));
 
                 DataHeader = reader.ReadUInt32();
@@ -181,9 +173,19 @@ namespace SparkEditor.FiestaLib.SHN
                 }
                 Rows.Add(row);
 
-                percent = Convert.ToInt32(((double)i / (double)recordCount) * 100);
+                percent = Convert.ToInt32(i / (double)recordCount * 100);
                 progress.Report(percent);
             }
+        }
+
+        private uint getDefaultRecordLength()
+        {
+            uint start = 2;
+            foreach (SHNColumn col in Columns)
+            {
+                start += (uint)col.Length;
+            }
+            return start;
         }
 
         /// <summary>
@@ -198,7 +200,7 @@ namespace SparkEditor.FiestaLib.SHN
 
             writer.Write(DataHeader);
             writer.Write(RowCount);
-            writer.Write(defaultRecordLength);
+            writer.Write(getDefaultRecordLength());
             writer.Write(ColumnCount);
 
             foreach (SHNColumn col in Columns)
@@ -212,7 +214,11 @@ namespace SparkEditor.FiestaLib.SHN
                     writer.WriteString(col.ColumnName, 0x30);
                 }
 
-                writer.Write(getIDFromType(col.DataType));
+                if (col.SHNType == SHNType.UnknownLengthString)
+                    writer.Write((uint)0x1A);
+                else
+                    writer.Write(getIDFromType(col.DataType));
+
                 writer.Write(col.Length);
             }
 
@@ -255,6 +261,10 @@ namespace SparkEditor.FiestaLib.SHN
 
                     switch (col.SHNType)
                     {
+                        case SHNType.UnknownLengthString:
+                            writer.WriteString(value.ToString(), -1);
+                            break;
+
                         case SHNType.String:
                             writer.WriteString(value.ToString(), col.Length);
                             break;
@@ -299,10 +309,6 @@ namespace SparkEditor.FiestaLib.SHN
                                 value = uint.Parse((string)value);
 
                             writer.Write((uint)value);
-                            break;
-
-                        case SHNType.UnknownLengthString:
-                            writer.WriteString(value.ToString(), -1);
                             break;
 
                         case SHNType.UInt16:

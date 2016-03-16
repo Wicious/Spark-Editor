@@ -8,7 +8,8 @@ namespace SparkEditor.FiestaLib.Quest
 {
     public enum QuestFileVersion
     {
-        NA11 = 4,
-        CN12 = 6,
+        NA11,
+        CN12,
+        EU15,
     }
 }

@@ -208,17 +208,34 @@ namespace SparkEditor
 
                 if (file.GetType() == typeof(QuestFile))
                 {
-                    file = new QuestFile("");
+                    file = file ?? new QuestFile("");
                     Program.LoadedFiles.Add(file);
                     Extensions.FileType = FileType.QuestFile;
 
-                    var tab = new TabPage(Path.GetFileName(file.FilePath));
+                    var mainTab = new TabPage("QuestFile");
+                    var qTab = new TabPage("Quests");
+                    var dTab = new TabPage("Dialouges");
+                    mainTab.BackColor = Color.White;
+                    dTab.BackColor = Color.White;
+                    qTab.BackColor = Color.White;
+
+                    var tc = new TabControl();
+                    tc.Dock = DockStyle.Fill;
+                    qTab.Padding = new Padding(0, 5, 0, 0);
+                    dTab.Padding = new Padding(0, 5, 0, 0);
+                    mainTab.Padding = new Padding(0, 5, 0, 0);
+
+                    tc.TabPages.Add(qTab);
+                    tc.TabPages.Add(dTab);
+
+                    mainTab.Controls.Add(tc);
+
                     var qPanel = new QuestPanel((QuestFile)file);
                     qPanel.Dock = DockStyle.Fill;
-                    tab.BackColor = Color.White;
-                    tab.Controls.Add(qPanel);
+                    qTab.Controls.Add(qPanel);
+                    mainTab.Controls.Add(tc);
 
-                    tcFiles.TabPages.Add(tab);
+                    tcFiles.TabPages.Add(mainTab);
                     tcFiles.SelectedIndex = tcFiles.TabPages.Count - 1;
                 }
 
@@ -329,6 +346,7 @@ namespace SparkEditor
                 )));
 
                 Program.LoadedFiles[tcFiles.SelectedIndex].IsSaved = true;
+                lblStatus.Text = "Saved " + Path.GetFileName(file.FilePath) + "!";
 
                 // Hide and reset the progressbar.
                 pbProgress.Visible = false;
@@ -350,7 +368,10 @@ namespace SparkEditor
                 if (Program.LoadedFiles.Count == 0)
                     throw new Exception("No files are opened.");
 
-                saveFile(Program.LoadedFiles[tcFiles.SelectedIndex].FilePath);
+                if (!Path.IsPathRooted(Program.LoadedFiles[tcFiles.SelectedIndex].FilePath))
+                    btnSaveAs.PerformClick();
+                else
+                    saveFile(Program.LoadedFiles[tcFiles.SelectedIndex].FilePath);
             }
             catch (Exception ex)
             {
@@ -552,6 +573,13 @@ namespace SparkEditor
         private void btnMassEditor_Click(object sender, EventArgs e)
         {
             if (Program.LoadedFiles.Count == 0) return;
+
+            if (Program.LoadedFiles[tcFiles.SelectedIndex].GetType() == typeof(QuestFile))
+            {
+                var qfrm = new frmQuestMassEditor();
+                qfrm.Show(this);
+                return;
+            }
 
             var frm = new frmMassEditor(Program.LoadedFiles[tcFiles.SelectedIndex]);
             frm.Show(this);

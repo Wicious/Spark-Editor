@@ -36,7 +36,22 @@ namespace SparkEditor.Controls
 
             lbQuests.SelectedIndexChanged += lbQuests_SelectedIndexChanged;
 
-            loadQuest(0);
+            if (file.Quests.Count > 0)
+            {
+                loadQuest(0);
+            }
+            else
+            {
+                tcQuest.Visible = false;
+                Label lblNoQuest = new Label();
+                lblNoQuest.Font = new Font("Arial", 14, FontStyle.Bold);
+                lblNoQuest.Dock = DockStyle.Fill;
+                lblNoQuest.AutoSize = false;
+                lblNoQuest.ForeColor = Color.FromArgb(170, 170, 170);
+                lblNoQuest.TextAlign = ContentAlignment.MiddleCenter;
+                lblNoQuest.Text = "No quests to show";
+                tableLayoutPanel1.Controls.Add(lblNoQuest, 0, 1);
+            }
         }
 
         private void lbQuests_SelectedIndexChanged(object sender, EventArgs e)
@@ -46,6 +61,7 @@ namespace SparkEditor.Controls
 
         private void loadQuest(int selectedIndex)
         {
+            tcQuest.Visible = true;
             SelectedQuest = (Quest)lbQuests.Items[selectedIndex];
 
             pgQuestProperties.SelectedObject = SelectedQuest;
@@ -278,6 +294,17 @@ namespace SparkEditor.Controls
             MoreThan,
             LessThan,
             Contains
+        }
+
+        private void btnCreateQuest_Click(object sender, EventArgs e)
+        {
+            using (var frm = new Forms.frmNewQuest())
+            {
+                if(frm.ShowDialog() == DialogResult.OK)
+                {
+                    file.Quests.Add(new Quest() { ID = 0, Description = 0});
+                }
+            }
         }
     }
 }
